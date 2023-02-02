@@ -1,0 +1,109 @@
+let arr = [1, 2, 3, 4, 51, 6, 7, 8, 9];
+
+
+function maxArr(arr) {
+    let max = arr[0];
+    for (let i = 1; i< arr.length; i++) {
+        if (max < arr[i]) {
+            max = arr[i];
+        }
+    }
+
+    return max;
+}
+
+function minArr(arr) {
+    let min = arr[0];
+    for (let i = 1; i< arr.length; i++) {
+        if (min > arr[i]) {
+            min = arr[i];
+        }
+    }
+
+    return min;
+}
+console.log(maxArr(arr));
+console.log(minArr(arr));
+
+function bai3(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = arr[i]%2;
+    }
+    return arr;
+}
+
+console.log(bai3(arr));
+
+function bai4(a) {
+    let array = [];
+    for (let i = 0; i < 10; i++) {
+        array[i] = a;
+    }
+    return array.toString().replaceAll(',','');
+}
+
+console.log(bai4('a'));
+
+function bai5(a) {
+    let array = [];
+    for (let i = 0; i < 10; i++) {
+        array[i] = a;
+    }
+    return array.toString().replaceAll(',','-');
+}
+
+console.log(bai5('a'));
+
+let arr1 = [1, 2, 3, 4, 51, 6, 7, 8, 9];
+function checkExist(arr, taget) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == taget) {
+            return true;
+        }
+    }
+    return false;
+}
+
+console.log(checkExist(arr1, 1));
+
+function checkThanElement(arr, number) {
+    let array = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > number){
+            array.push(arr[i]);
+        }
+    }
+    return array;
+}
+
+console.log(checkThanElement(arr1, 5));
+
+
+function randomHexCode(arr) {
+    let color = [];
+    color[0] =  "#";
+    for (let i = 1; i < 7; i++) {
+        color[i] = arr[Math.floor(Math.random()*16)];
+    }
+    return color.toString().replaceAll(',','');
+}
+
+let arrColorHex = [0,1,2,3,4,5,6,7,8,9,"a","b","c","d","e","f"];
+
+console.log(randomHexCode(arrColorHex));
+
+function randomRGB() {
+    let rgb = [];
+    rgb[0]= Math.floor(Math.random()*256);
+    rgb[1]= Math.floor(Math.random()*256);
+    rgb[2]= Math.floor(Math.random()*256);
+
+    return "rgb("+ rgb +")";
+}
+
+console.log(randomRGB());
+
+console.log(Math.floor(Math.random()*3));
+
+console.log(Math.max(...arr1));
+console.log(Math.min(...arr1));
