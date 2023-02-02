@@ -107,3 +107,77 @@ console.log(Math.floor(Math.random()*3));
 
 console.log(Math.max(...arr1));
 console.log(Math.min(...arr1));
+
+// Khởi tạo object có dữ liệu (nên sử dụng)
+let user = {
+    name: "Nguyễn Văn A",
+    age: 23,
+    email: "abc@gmail.com"
+}
+
+console.log(user.name);
+delete user.email;
+user.address = "HN";
+console.log(user);
+
+// Danh sách các sản phẩm có trong giỏ hàng
+let products = [
+    {
+        name: "Iphone 13 Pro Max", // Tên sản phẩm
+        price: 3000000, // Giá mỗi sản phẩm
+        brand: "Apple", // Thương hiệu
+        count: 2, // Số lượng sản phẩm trong giỏ hàng
+    },
+    {
+        name: "Samsung Galaxy Z Fold3",
+        price: 41000000,
+        brand: "Samsung",
+        count: 1,
+    },
+    {
+        name: "IPhone 11",
+        price: 15500000,
+        brand: "Apple",
+        count: 1,
+    },
+    {
+        name: "OPPO Find X3 Pro",
+        price: 19500000,
+        brand: "OPPO",
+        count: 3,
+    },
+]
+
+
+//1
+let {name, price, brand, count} = products;
+
+console.log(products);
+
+//2 
+//3
+function findApple(product){
+    return product.filter((p) => p.brand == "Apple");
+}
+console.log(findApple(products));
+//4
+function findProducts(product){
+    return product.filter((p) => p.price >= 20000000);
+}
+
+console.log(findProducts(products));
+//5
+function findProForName(products){
+    return products.filter((p) => p.name.toLowerCase().includes("pro"))
+}
+console.log(findProForName(products));
+//6
+
+//7
+function finSamSung(product){
+    delete product.filter((p)=> p.name == "Samsung");
+}
+console.log(products);
+//8
+//9
+//10
