@@ -1,125 +1,3 @@
-let arr = [1, 2, 3, 4, 51, 6, 7, 8, 9];
-
-
-function maxArr(arr) {
-    let max = arr[0];
-    for (let i = 1; i< arr.length; i++) {
-        if (max < arr[i]) {
-            max = arr[i];
-        }
-    }
-
-    return max;
-}
-
-function minArr(arr) {
-    let min = arr[0];
-    for (let i = 1; i< arr.length; i++) {
-        if (min > arr[i]) {
-            min = arr[i];
-        }
-    }
-
-    return min;
-}
-console.log(maxArr(arr));
-console.log(minArr(arr));
-
-function bai3(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        arr[i] = arr[i]%2;
-    }
-    return arr;
-}
-
-console.log(bai3(arr));
-
-function bai4(a) {
-    let array = [];
-    for (let i = 0; i < 10; i++) {
-        array[i] = a;
-    }
-    return array.toString().replaceAll(',','');
-}
-
-console.log(bai4('a'));
-
-function bai5(a) {
-    let array = [];
-    for (let i = 0; i < 10; i++) {
-        array[i] = a;
-    }
-    return array.toString().replaceAll(',','-');
-}
-
-console.log(bai5('a'));
-
-let arr1 = [1, 2, 3, 4, 51, 6, 7, 8, 9];
-function checkExist(arr, taget) {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] == taget) {
-            return true;
-        }
-    }
-    return false;
-}
-
-console.log(checkExist(arr1, 1));
-
-function checkThanElement(arr, number) {
-    let array = [];
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] > number){
-            array.push(arr[i]);
-        }
-    }
-    return array;
-}
-
-console.log(checkThanElement(arr1, 5));
-
-
-function randomHexCode(arr) {
-    let color = [];
-    color[0] =  "#";
-    for (let i = 1; i < 7; i++) {
-        color[i] = arr[Math.floor(Math.random()*16)];
-    }
-    return color.toString().replaceAll(',','');
-}
-
-let arrColorHex = [0,1,2,3,4,5,6,7,8,9,"a","b","c","d","e","f"];
-
-console.log(randomHexCode(arrColorHex));
-
-function randomRGB() {
-    let rgb = [];
-    rgb[0]= Math.floor(Math.random()*256);
-    rgb[1]= Math.floor(Math.random()*256);
-    rgb[2]= Math.floor(Math.random()*256);
-
-    return "rgb("+ rgb +")";
-}
-
-console.log(randomRGB());
-
-console.log(Math.floor(Math.random()*3));
-
-console.log(Math.max(...arr1));
-console.log(Math.min(...arr1));
-
-// Khởi tạo object có dữ liệu (nên sử dụng)
-let user = {
-    name: "Nguyễn Văn A",
-    age: 23,
-    email: "abc@gmail.com"
-}
-
-console.log(user.name);
-delete user.email;
-user.address = "HN";
-console.log(user);
-
 // Danh sách các sản phẩm có trong giỏ hàng
 let products = [
     {
@@ -138,46 +16,112 @@ let products = [
         name: "IPhone 11",
         price: 15500000,
         brand: "Apple",
+        count: 11,
+    },
+    {
+        name: "OPPO Find X1 Pro",
+        price: 2000000,
+        brand: "OPPO",
         count: 1,
     },
     {
+        name: "OPPO Find X2 Pro",
+        price: 18500000,
+        brand: "OPPO",
+        count: 6,
+    },
+    {
         name: "OPPO Find X3 Pro",
-        price: 19500000,
+        price: 16500000,
+        brand: "OPPO",
+        count: 9,
+    },
+    {
+        name: "OPPO Find X4 Pro",
+        price: 22500000,
         brand: "OPPO",
         count: 3,
+    },
+    {
+        name: "OPPO Find X5 Pro",
+        price: 19500000,
+        brand: "OPPO",
+        count: 4,
     },
 ]
 
 
-//1
-let {name, price, brand, count} = products;
-
-console.log(products);
-
-//2 
-//3
-function findApple(product){
-    return product.filter((p) => p.brand == "Apple");
-}
-console.log(findApple(products));
-//4
-function findProducts(product){
+//4 
+function filterProduct(product){
     return product.filter((p) => p.price >= 20000000);
 }
 
-console.log(findProducts(products));
-//5
+console.log(filterProduct(products));
+
+
+//5 
 function findProForName(products){
     return products.filter((p) => p.name.toLowerCase().includes("pro"))
 }
-console.log(findProForName(products));
-//6
 
-//7
-function finSamSung(product){
-    delete product.filter((p)=> p.name == "Samsung");
+console.log(findProForName(products)); 
+
+
+// 6. Thêm 1 sản phẩm bất kỳ vào trong mảng product
+
+function addProduct(products, name, price, brand, count) {
+    products.push({
+        name: name,
+        price: price,
+        brand: brand,
+        count: count,
+    })
 }
+addProduct(products,"SamSung abc", 12345678, "Samsung", 4)
 console.log(products);
-//8
-//9
-//10
+
+// 7. Xóa tất cả sản phẩm của thương hiệu "Samsung" trong giỏ hàng
+
+function findSamSung(product){
+    return product.findIndex((p)=> p.brand == "Samsung");
+}
+
+function deleteAllProductBySamsung(products) {
+    while (products.some((p)=> p.brand == "Samsung")) {
+        products.splice(findSamSung(products),1);
+    }
+}
+
+deleteAllProductBySamsung(products);
+console.log(products);
+
+// 8. Sắp xếp giỏ hàng theo price tăng dần
+function sortByPrice(products) {
+    return products.sort((a,b) => a.price - b .price);
+}
+
+console.log(sortByPrice(products));
+
+// 9. Sắp xếp giỏ hàng theo count giảm dần
+function sortByCountReverse(products){
+    return products.sort((a,b) => b.count - a.count);
+}
+
+console.log(sortByCountReverse(products));
+
+// 10. Lấy ra 2 sản phẩm bất kỳ trong giỏ hàng
+function randomTwoProduct(products) {
+    let len = products.length;
+    let result = [];
+    let index0 = 0;
+    let index1 = 0;
+    while (index0 == index1){
+        index0 = Math.floor(Math.random() * len);
+        index1 = Math.floor(Math.random() * len);
+    }
+    result[0] = products[index0];
+    result[1] = products[index1];
+    return result;
+}
+
+console.log(randomTwoProduct(products));
