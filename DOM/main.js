@@ -39,16 +39,18 @@ heading.classList.remove("text-red")
 
 
 setInterval(()=>{
-    heading.classList.toggle("text-red") //toggle thực hiện nếu có thì xóa đi, không có thì thêm vào
-},1000)  // thuực hiện thao tác trong 1 khoảng thời gian
+    heading.classList.toggle("text-red")
+    heading.classList.toggle(heading.style.color = "rgb(90, 167, 42)") 
+     //toggle thực hiện nếu có thì xóa đi, không có thì thêm vào
+},100)  // thuực hiện thao tác trong 1 khoảng thời gian
 
 setTimeout(()=>{
 
-},10000) // thực hiện nghỉ 1 khoảng time
+},1000) // thực hiện nghỉ 1 khoảng time
 
 const timeTest = document.getElementById("time");
 const spanTime = document.querySelector("#time span")
-let time = 10;
+let time = 100;
 
 const timeInterval = setInterval(()=>{
     time--;
