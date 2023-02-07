@@ -35,7 +35,6 @@ function findIndexId(arr,i){
     return arr.findIndex((e) => e.id == i)
 }
 const deleteTodo = id => {
-    console.log(id);
     let indexId = findIndexId(todos,id)
     console.log(indexId);
     todos.splice(indexId,1);
@@ -43,7 +42,10 @@ const deleteTodo = id => {
 }
 
 const toggleStatus = id => {
-    
+    let indexId = findIndexId(todos,id);
+    const checkbox = document.querySelector("checkbox")
+    checkbox.classList.toggle(todos[indexId].status);
+    renderTodos(todos);
 }
 
 const renderTodos = arr =>{
@@ -58,7 +60,7 @@ const renderTodos = arr =>{
     arr.forEach(element => {
         html += `
             <li>
-                <input type="checkbox" ${element.status ? "checked" : ""}/>
+                <input onclick = "toggleStatus(${element.id})" type="checkbox" ${element.status ? "checked" : "" }/>
                 <span class = ${element.status ? "active": ""}>${element.title}</span>
                 <button onclick="editTodo(${element.id})">Edit</button>
                 <button onclick="deleteTodo(${element.id})">Delete</button>
