@@ -5,21 +5,21 @@ inputEl.placeholder = "text ... "
 
 const listEl = document.getElementById("list");
 
-listEl.insertAdjacentElement("beforebegin",inputEl);
+listEl.insertAdjacentElement("beforebegin", inputEl);
 
 // tao button
 const btnAdd = document.createElement("button");
 btnAdd.innerText = "Add";
-inputEl.insertAdjacentElement("afterend",btnAdd);
+inputEl.insertAdjacentElement("afterend", btnAdd);
 
-const addElement = () =>{
+const addElement = () => {
     let value = inputEl.value;
-    if(value.trim()== ""){
+    if (value.trim() == "") {
         alert("noi dung trong")
         return;
     }
     listEl.insertAdjacentHTML("beforeend", `<li>${value.trim()}</li>`);
-    inputEl.value    = "";
+    inputEl.value = "";
 }
 
 //Add bang chuot
@@ -30,8 +30,8 @@ btnAdd.addEventListener("click", addElement);
 
 //Add bang enter
 
-inputEl.addEventListener("keydown", (e)=>{
-    if(e.key ==="Enter"){
+inputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
         addElement();
     }
 })
@@ -42,14 +42,14 @@ inputEl.addEventListener("keydown", (e)=>{
 const remove = document.createElement("button");
 remove.innerText = "Remove";
 
-btnAdd.insertAdjacentElement("afterend",remove);
+btnAdd.insertAdjacentElement("afterend", remove);
 
 const removeElement = () => {
     const lastChild = document.querySelector("li:last-child")
     lastChild.parentNode.removeChild(lastChild);
 }
 
-remove.addEventListener("click",removeElement);
+remove.addEventListener("click", removeElement);
 
 // Thêm 1 nút “Hide” trên đầu của danh sách <ul>.
 // Khi bấm vào “Hide” thì <ul> sẽ ẩn. Đồng thời label của nút “Hide” => “Show”
@@ -58,10 +58,10 @@ remove.addEventListener("click",removeElement);
 const hide = document.createElement("button");
 hide.innerText = "Hide";
 // listEl.insertAdjacentHTML("beforebegin", "</br>")
-listEl.insertAdjacentElement("beforebegin",hide);
+listEl.insertAdjacentElement("beforebegin", hide);
 
 
-hide.addEventListener("click",() =>{
+hide.addEventListener("click", () => {
     listEl.classList.toggle('hide');
 
     if (hide.innerText == "Hide") {

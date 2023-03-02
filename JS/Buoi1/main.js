@@ -1,10 +1,10 @@
 //Bài 1
 // sử dụng đệ quy
-function giaiThua(number){
+function giaiThua(number) {
     if (number == 1) {
         return 1;
     }
-    return number*giaiThua(number-1);
+    return number * giaiThua(number - 1);
 }
 
 // khử đệ quy
@@ -25,7 +25,7 @@ console.log(giaiThua2(5));
 // Bài 2
 function chuoiDaoNguoc(string) {
     let result = "";
-    for (let i = string.length-1; i >= 0; i--) {
+    for (let i = string.length - 1; i >= 0; i--) {
         result += string.charAt(i);
     }
     return result;
@@ -64,7 +64,7 @@ function switchCase(string) {
             console.log("Д––––– д–––! Добрый день!");
             break;
         }
-        default:{
+        default: {
             console.log("No translate");
         }
     }
@@ -79,7 +79,7 @@ function subString(string) {
     if (string.length < 11) {
         return string;
     } else {
-        return string.substring(0,10)+ "...";
+        return string.substring(0, 10) + "...";
     }
 }
 

@@ -3,7 +3,7 @@ const listEl = document.getElementById("list")
 for (let i = 8; i <= 10; i++) {
     const li = document.createElement("li");
     li.innerText = `Item ${i}`
-    listEl.insertAdjacentElement("beforeend",li)
+    listEl.insertAdjacentElement("beforeend", li)
 }
 // Sửa nội dung cho thẻ <li> 1 thành màu đỏ (color)
 const firstItem = document.querySelector("li:nth-child(1)");

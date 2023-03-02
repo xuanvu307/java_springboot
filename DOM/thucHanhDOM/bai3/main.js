@@ -4,7 +4,7 @@
 const newText = `<li>24/7 Phone support</li>`
 const positionNewText = document.querySelector("#pro-plan li:last-child")
 console.log(positionNewText);
-positionNewText.insertAdjacentHTML("beforeend",newText);
+positionNewText.insertAdjacentHTML("beforeend", newText);
 
 // Đổi vị trí 2 card pricing (pro, basic) => (basic, pro)
 

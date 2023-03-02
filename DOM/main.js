@@ -21,11 +21,11 @@ document.body.appendChild(btn);
 document.body.prepend(btn);
 
 
-document.body.insertBefore(btn,para4);
+document.body.insertBefore(btn, para4);
 
-para2.insertAdjacentElement("beforebegin",btn)
+para2.insertAdjacentElement("beforebegin", btn)
 
-para4.insertAdjacentHTML("beforebegin","<button>Click me</button>")
+para4.insertAdjacentHTML("beforebegin", "<button>Click me</button>")
 
 // Xoas
 
@@ -38,26 +38,26 @@ heading.classList.add("text-red", "text-big", "text-center");
 heading.classList.remove("text-red")
 
 
-setInterval(()=>{
+setInterval(() => {
     heading.classList.toggle("text-red")
-    heading.classList.toggle(heading.style.color = "rgb(90, 167, 42)") 
-     //toggle thực hiện nếu có thì xóa đi, không có thì thêm vào
-},100)  // thuực hiện thao tác trong 1 khoảng thời gian
+    heading.classList.toggle(heading.style.color = "rgb(90, 167, 42)")
+    //toggle thực hiện nếu có thì xóa đi, không có thì thêm vào
+}, 100)  // thuực hiện thao tác trong 1 khoảng thời gian
 
-setTimeout(()=>{
+setTimeout(() => {
 
-},1000) // thực hiện nghỉ 1 khoảng time
+}, 1000) // thực hiện nghỉ 1 khoảng time
 
 const timeTest = document.getElementById("time");
 const spanTime = document.querySelector("#time span")
 let time = 100;
 
-const timeInterval = setInterval(()=>{
+const timeInterval = setInterval(() => {
     time--;
     spanTime.innerText = `${time}s`;
 
-    if(time == 0){
+    if (time == 0) {
         clearInterval(timeInterval);
         timeTest.innerText = "Kết thúc"
     }
-},1000)
+}, 1000)

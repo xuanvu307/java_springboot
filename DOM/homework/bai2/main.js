@@ -11,26 +11,26 @@ let currColors = [...colors];
 
 const boxesEl = document.querySelector(".boxes");
 const pointsEl = document.querySelector(".points");
-const btn =  document.getElementById("btn");
+const btn = document.getElementById("btn");
 
 const renderBox = arr => {
     boxesEl.innerHTML = " ";
     let html = "";
     arr.forEach((color, index) => {
-       html += `<div class = "box" style = "background-color : ${color}" onclick = "removeBox(${index})"></div>` 
+        html += `<div class = "box" style = "background-color : ${color}" onclick = "removeBox(${index})"></div>`
     });
 
     boxesEl.innerHTML = html;
     pointsEl.innerHTML = arr.length;
 }
 
-btn.addEventListener("click", ()=>{
+btn.addEventListener("click", () => {
     currColors = [...currColors, ...colors];
     renderBox(currColors);
 })
 
-const removeBox = index =>{
-    currColors.splice(index,1);
+const removeBox = index => {
+    currColors.splice(index, 1);
     renderBox(currColors);
 }
 

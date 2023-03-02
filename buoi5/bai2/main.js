@@ -14,14 +14,14 @@ function renderBreed(breeds) {
         let optine = document.createElement("option");
         optine.value = breeds[i];
         optine.innerText = breeds[i];
-        select.insertAdjacentElement("afterbegin",optine);
+        select.insertAdjacentElement("afterbegin", optine);
     }
 }
 
 getBreedList()
 
 
-btn.addEventListener("click",async ()=>{
+btn.addEventListener("click", async () => {
     try {
         let keySelect = select.value;
         console.log(keySelect)
