@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -40,22 +39,22 @@ public class FileService {
         String fileId = UUID.randomUUID().toString();
         Path filePath = rootPath.resolve(fileId);
         File fileUpload = new File(filePath.toString());
-//        try (OutputStream outputStream = new FileOutputStream(fileUpload)){
-//            outputStream.write(file.getBytes());
-//            return new FileResponse("api/v1/files/"+fileId);
-//        } catch (IOException e){
-//            throw new RuntimeException("loi up load anh");
-//        }
+        try (OutputStream outputStream = new FileOutputStream(fileUpload)){
+            outputStream.write(file.getBytes());
+            return new FileResponse("api/v1/files/"+fileId);
+        } catch (IOException e){
+            throw new RuntimeException("loi up load anh");
+        }
 
 
 //        File file1 = new File(file.getOriginalFilename());
 //
-        try {
-            file.transferTo(fileUpload);
-            return new FileResponse("/api/v1/files/"+fileId);
-        } catch (IOException i){
-            throw new RuntimeException("loi up file");
-        }
+//        try {
+//            file.transferTo(fileUpload);
+//            return new FileResponse("/api/v1/files/"+fileId);
+//        } catch (IOException i){
+//            throw new RuntimeException("loi up file");
+//        }
     }
 
     private void validateFile(MultipartFile file) {

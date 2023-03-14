@@ -1,5 +1,6 @@
 package com.example.buoi10_quanlyuser.controller;
 
+import com.example.buoi10_quanlyuser.model.FileResponse;
 import com.example.buoi10_quanlyuser.model.User;
 import com.example.buoi10_quanlyuser.model.UserDto;
 import com.example.buoi10_quanlyuser.request.ChangePasswordRequest;
@@ -8,7 +9,9 @@ import com.example.buoi10_quanlyuser.request.UserEditRequest;
 import com.example.buoi10_quanlyuser.request.UserRequest;
 import com.example.buoi10_quanlyuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @RestController
@@ -54,10 +57,16 @@ public class UserController {
 
 //    Quên mật khẩu
 
-    @PutMapping("users")
+    @PutMapping("users/reset-password")
     public void resetPassword(@RequestBody ResetPassword resetPassword){
         userService.resetPassword(resetPassword);
     }
 
+    // update avata
+    @PutMapping("/users/{id}/update-avatar")
+    public ResponseEntity<?> updateAvatar(@ModelAttribute("file")MultipartFile file, @PathVariable Integer id){
+        FileResponse fileResponse = userService.updateAvatar(id, file);
+        return ResponseEntity.ok(fileResponse);
+    }
 
 }

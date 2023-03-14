@@ -1,17 +1,15 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams, Link, json } from 'react-router-dom'
+
+//validate form
+// react-hook-form
 
 function UserDetail() {
     // lay ra id tren url
     let {userId} = useParams();
     const [listAddress, setListAddress] = useState([]);
     const [user, setUser] = useState({});
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [address, setAddress] = useState(user.address);
-
     useEffect(() =>{
         const getData = async () => {
             const data = await fetch(`https://provinces.open-api.vn/api/p/`)
@@ -25,7 +23,6 @@ function UserDetail() {
         const getUser = async () => {
             const data = await fetch(`http://localhost:8080/api/v1/users/${userId}`)
             const dataJson = await data.json()
-            console.log(dataJson)
             setUser(dataJson);
         }
         getUser()
@@ -35,9 +32,25 @@ function UserDetail() {
         await fetch(`http://localhost:8080/api/v1/users/${userId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name: {name}, phone : {phone}, address :{address}})
+            body: JSON.stringify({name: `${name}`, phone : `${phone}`, address :`${address}`})
         })
-        
+        setUser(user)
+    }
+
+    const changeAvatar = async (e) =>{
+        const file = e.target.files[0];
+        console.log(file);
+        const formData =new FormData();
+        formData.append("file", file)
+        try {
+            const rs = await axios.put(`http://localhost:8080/api/v1/users/${userId}/update-avatar`,formData,{
+                headers : {"Content-Type" : "form-data"}
+            })
+            console.log(rs)
+            setUser({...user, avatar: rs.data.url});
+        } catch (error) {
+            console.log(error);
+        }
     }
   return (
     <div className="container mt-5 mb-5">
@@ -48,19 +61,19 @@ function UserDetail() {
                 <div className="bg-light p-4">
                     <div className="mb-3">
                         <label className="col-form-label">Fullname</label>
-                        <input type="text" id="fullname" className="form-control" value={user.name} onChange = {e => setName(e.target.value)}/>
+                        <input type="text" id="fullname" className="form-control" value={user?.name} onChange = {e => setUser({...user, name: e.target.value})}/>
                     </div>
                     <div className="mb-3">
                         <label className="col-form-label">Email</label>
-                        <input type="text" id="email" className="form-control" value={user.email} disabled />
+                        <input type="text" id="email" className="form-control" value={user?.email} disabled />
                     </div>
                     <div className="mb-3">
                         <label className="col-form-label">Phone</label>
-                        <input type="text" id="phone" className="form-control" value={user.phone} onChange = {e => setPhone(e.target.value)}/>
+                        <input type="text" id="phone" className="form-control" value={user?.phone} onChange = {e => setUser({...user, phone: e.target.value})}/>
                     </div>
                     <div className="mb-3">
                         <label className="col-form-label">Address</label>
-                        <select className="form-select" id="address" value={user.address} onChange = {e => setAddress(e.target.value)}>
+                        <select className="form-select" id="address" value={user?.address} onChange = {e => setUser({...user, address: e.target.value})}>
                             {listAddress.map((add) =>(
                                 <option key={add.code} value={add.name}>{add.name}</option>
                             ))}
@@ -69,13 +82,16 @@ function UserDetail() {
                     <div className="mb-3">
                         <label className="form-label">Avatar</label>
                         <div className="avatar-preview mb-3 rounded">
-                            <img src="https://via.placeholder.com/200" alt="avatar" id="avatar-preview" className="rounded" />
+                            <img src={
+                                        `http://localhost:8080/${user?.avatar}` ??
+                                        "https://via.placeholder.com/200"
+                                    } alt="avatar" id="avatar-preview" className="rounded" />
                         </div>
 
                         <label className="btn btn-warning" for="input">
                             Chọn ảnh
                         </label>
-                        <input type="file" id="input" className="d-none" />
+                        <input type="file" id="input" className="d-none" onChange={e => changeAvatar(e)}/>
                     </div>
                     <div className="mb-3">
                         <label className="col-form-label">Password</label>
