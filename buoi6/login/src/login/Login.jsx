@@ -46,7 +46,7 @@ function Login() {
                     <h2>email: {user.email}</h2>
                     <br />
                     <br />
-                    <div>avatar</div>
+                    <div>avatar: {user.avatar}</div>
                 </div>
             }
         </>
