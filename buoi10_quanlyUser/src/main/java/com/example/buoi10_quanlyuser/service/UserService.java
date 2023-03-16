@@ -58,7 +58,7 @@ public class UserService {
                 });
     }
 
-    public User creatUser(UserRequest request) {
+    public UserDto creatUser(UserRequest request) {
         if (request.getName().trim().equals("") || request.getEmail().trim().equals("")) {
             throw new NotFoundException("có trường email hoặc tên trống");
         }
@@ -76,15 +76,15 @@ public class UserService {
                 .password(request.getPassword())
                 .build();
         UserDB.users.add(user);
-        return user;
+        return userMapper.toUserDto(user);
     }
 
-    public User editUser(Integer id, UserEditRequest request) {
+    public UserDto editUser(Integer id, UserEditRequest request) {
         User user = userRepository.getUserById(id);
         user.setName(request.getName());
         user.setPhone(request.getPhone());
         user.setAddress(request.getAddress());
-        return user;
+        return userMapper.toUserDto(user);
     }
 
     public void deleteUser(Integer id) {

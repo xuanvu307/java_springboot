@@ -35,12 +35,12 @@ public class UserController {
     }
 
     @PostMapping("users")
-    public User creatUser(@RequestBody UserRequest request){
+    public UserDto creatUser(@RequestBody UserRequest request){
         return userService.creatUser(request);
     }
 
     @PutMapping("users/{id}")
-    public User editUser(@PathVariable Integer id, @RequestBody UserEditRequest request){
+    public UserDto editUser(@PathVariable Integer id, @RequestBody UserEditRequest request){
         return userService.editUser(id, request);
     }
 
