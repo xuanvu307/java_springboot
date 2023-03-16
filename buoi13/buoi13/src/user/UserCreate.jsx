@@ -11,8 +11,10 @@ function UserCreate() {
     const schema = yup.object({
         name: yup.string().required("Tên không để trống"),
         phone: yup.string().required("Phone không để trống"),
-        email: yup.string().required("Email không để trống"),
+        email: yup.string().required("Email không để trống")
+            .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "email không đúng định dạng"),
         password: yup.string().required("Password không để trống")
+            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, "password yêu cầu chữ hoa chữ thường chữ số và ký tự và lớn hơn 8 ký tự")
     }).required();
 
     const {
