@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams, Link, json } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
@@ -16,11 +16,10 @@ function UserDetail() {
     const schema = yup.object({
         name: yup.string().required("Tên không để trống"),
         phone: yup.string().required("Phone không để trống"),
-        email: yup.string().required("Email không để trống"),
         password: yup.string(),
-        confirmPassword: yup.string()
+        confirmPassword: yup.string().notRequired()
             .oneOf([yup.ref("password")], "Mật khẩu phải giống nhau")
-    }).required();
+    });
 
     const {
         register,
@@ -32,7 +31,7 @@ function UserDetail() {
                 name: user?.name,
                 email: user?.email,
                 phone: user?.phone,
-                address: user?.address,
+                address: user?.address
             },
         });
 
@@ -186,12 +185,12 @@ function UserDetail() {
                         <form onSubmit={handleSubmit(changePassword)}>
                             <div className="modal-body">
                                 <div className="mb-3">
-                                    <label className="col-form-label">Mật khẩu cũ</label>
+                                    <label className="col-form-label">Mật khẩu mới</label>
                                     <input type="text" id="old-password" className="form-control" {...register("password")} />
                                     <p>{errors.password?.message}</p>
                                 </div>
                                 <div className="mb-3">
-                                    <label className="col-form-label">Mật khẩu mới</label>
+                                    <label className="col-form-label">Nhập lại mật khẩu mới</label>
                                     <input type="text" id="new-password" className="form-control" {...register("confirmPassword")} />
                                     <p>{errors.confirmPassword?.message}</p>
                                 </div>
