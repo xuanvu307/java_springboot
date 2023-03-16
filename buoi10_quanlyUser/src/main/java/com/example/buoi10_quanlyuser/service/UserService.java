@@ -9,7 +9,6 @@ import com.example.buoi10_quanlyuser.model.User;
 import com.example.buoi10_quanlyuser.model.UserDto;
 import com.example.buoi10_quanlyuser.repository.UserRepository;
 import com.example.buoi10_quanlyuser.request.ChangePasswordRequest;
-import com.example.buoi10_quanlyuser.request.ResetPassword;
 import com.example.buoi10_quanlyuser.request.UserEditRequest;
 import com.example.buoi10_quanlyuser.request.UserRequest;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -64,6 +62,11 @@ public class UserService {
         if (request.getName().trim().equals("") || request.getEmail().trim().equals("")) {
             throw new NotFoundException("có trường email hoặc tên trống");
         }
+        userRepository.getAllUser().forEach(user -> {
+            if (user.getEmail().equalsIgnoreCase(request.getEmail())) {
+                throw new BadRequest("email da ton tai");
+            }
+        });
         User user = User.builder()
                 .id(genID())
                 .name(request.getName())
@@ -77,14 +80,11 @@ public class UserService {
     }
 
     public User editUser(Integer id, UserEditRequest request) {
-        userRepository.getAllUser().forEach(user -> {
-            if (user.getId() == id) {
-                user.setName(request.getName());
-                user.setName(request.getPhone());
-                user.setAddress(request.getAddress());
-            }
-        });
-        throw new BadRequest("Không tìm thấy id");
+        User user = userRepository.getUserById(id);
+        user.setName(request.getName());
+        user.setPhone(request.getPhone());
+        user.setAddress(request.getAddress());
+        return user;
     }
 
     public void deleteUser(Integer id) {
@@ -99,22 +99,16 @@ public class UserService {
         });
     }
 
-    public void resetPassword(ResetPassword resetPassword) {
-        Optional<User> user1 = userRepository.getAllUser().stream()
-                .filter(user -> user.getEmail().equalsIgnoreCase(resetPassword.getEmail()))
-                .findFirst();
-
-        if (user1.isPresent()){
-            Random rd = new Random();
-            String newPassword = "new"+rd.nextInt(1000);
-            mailService.sendEmail(
-                    user1.get().getEmail(),
-                    "Mat khau moi",
-                    "mat khu moi la:" +newPassword
-            );
-        } else {
-            throw new NotFoundException("khong tim thay email");
-        }
+    public void resetPassword(Integer id) {
+        Random rd = new Random();
+        String newPassword = "new" + rd.nextInt(1000);
+        User user = userRepository.getUserById(id);
+        user.setPassword(newPassword);
+        mailService.sendEmail(
+                user.getEmail(),
+                "Mat khau moi",
+                "mat khu moi la:" + newPassword
+        );
     }
 
     public FileResponse updateAvatar(Integer id, MultipartFile file) {

@@ -4,7 +4,6 @@ import com.example.buoi10_quanlyuser.model.FileResponse;
 import com.example.buoi10_quanlyuser.model.User;
 import com.example.buoi10_quanlyuser.model.UserDto;
 import com.example.buoi10_quanlyuser.request.ChangePasswordRequest;
-import com.example.buoi10_quanlyuser.request.ResetPassword;
 import com.example.buoi10_quanlyuser.request.UserEditRequest;
 import com.example.buoi10_quanlyuser.request.UserRequest;
 import com.example.buoi10_quanlyuser.service.UserService;
@@ -57,9 +56,9 @@ public class UserController {
 
 //    Quên mật khẩu
 
-    @PutMapping("users/reset-password")
-    public void resetPassword(@RequestBody ResetPassword resetPassword){
-        userService.resetPassword(resetPassword);
+    @PutMapping("users/{id}/reset-password")
+    public void resetPassword(@PathVariable Integer id){
+        userService.resetPassword(id);
     }
 
     // update avata

@@ -10,12 +10,12 @@ import java.util.List;
 @Component
 public class UserMapper {
     public UserDto toUserDto(User user) {
-        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getPassword());
+        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getAvatar());
     }
 
     public List<UserDto> userDtoList(List<User> users) {
         return users.stream()
-                .map(user -> toUserDto(user))
+                .map(this::toUserDto)
                 .toList();
     }
 }
