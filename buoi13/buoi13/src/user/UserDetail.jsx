@@ -142,7 +142,7 @@ function UserDetail() {
                                 <label className="form-label">Avatar</label>
                                 <div className="avatar-preview mb-3 rounded">
                                     <img src={
-                                        `http://localhost:8080/${user?.avatar}` ??
+                                        `http://localhost:8080${user?.avatar}` ??
                                         `https://via.placeholder.com/200`
                                     } alt="avatar" id="avatar-preview" className="rounded" />
                                 </div>

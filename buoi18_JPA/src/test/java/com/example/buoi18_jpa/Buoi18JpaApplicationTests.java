@@ -17,8 +17,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
 import static org.assertj.core.api.Assertions.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -152,18 +155,48 @@ class Buoi18JpaApplicationTests {
 
     @Test
     void findByName() {
-        Page<Student> page = studentRepository.findByNameContainingIgnoreCase("a", PageRequest.of(0,5));
+        Page<Student> page = studentRepository.findByNameContainingIgnoreCase("a", PageRequest.of(0, 5));
         page.getContent().forEach(System.out::println);
     }
 
     @Test
-    void findByNameContainsIgnoreCase_NativeQuery(){
+    void findByNameContainsIgnoreCase_NativeQuery() {
         Page<Student> page = studentRepository
-                .findByNameContainsIgnoreCase_NativeQuery("a",PageRequest.of(0,5));
+                .findByNameContainsIgnoreCase_NativeQuery("a", PageRequest.of(0, 5));
         page.getContent().forEach(System.out::println);
 
         assertThat(page.getContent()).isNotNull();
         assertThat(page.getContent().size()).isEqualTo(6);
         assertThat(page.getContent()).contains();
+    }
+
+    @Test
+    @Transactional(rollbackFor = {SQLException.class, IllegalAccessException.class})
+    void save_student() {
+        Student student = Student.builder()
+                .name("nguyen van a")
+                .age(20)
+                .email("a@gmail.com")
+                .build();
+        studentRepository.save(student);
+
+        Student student2 = Student.builder()
+                .name("nguyen van b")
+                .age(20)
+                .email("a@gmail.com")
+                .build();
+        studentRepository.save(student2);
+    }
+
+    @Test
+    @Rollback(value = false)
+    void updateName() {
+        studentRepository.updateName("xuan vu", 6);
+    }
+
+    @Test
+    @Rollback(value = false)
+    void deleteByUserEmail() {
+        studentRepository.deleteByUserEmail("aubrey.marvin@gmail.com");
     }
 }

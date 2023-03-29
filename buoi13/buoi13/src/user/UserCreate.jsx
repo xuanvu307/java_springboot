@@ -49,7 +49,7 @@ function UserCreate() {
                 body: JSON.stringify(data)
             })
             const userJson = await user.json();
-            if (user.status === 200) {
+            if (user.status === 201) {
                 alert("tao user thanh cong")
                 setTimeout(() => {
                     navigate(`/users/${userJson.id}`, { replace: true });
