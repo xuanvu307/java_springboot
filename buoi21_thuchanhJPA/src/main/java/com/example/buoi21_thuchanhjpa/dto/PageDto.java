@@ -16,5 +16,5 @@ public class PageDto {
     private Integer pageSize;
     private Integer totalPages;
     private Integer totalItems;
-    private List<Course> data;
+    private List<CourseDto> data;
 }

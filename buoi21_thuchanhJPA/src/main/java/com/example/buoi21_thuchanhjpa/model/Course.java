@@ -45,6 +45,16 @@ import java.util.List;
                 and (:category is null or ct.name = :category)
                 group by c.id
                 """) // Định nghĩa câu lệnh native query
+@NamedNativeQuery(
+        name = "findCourseByAdmin", // Đặt tên cho câu lệnh query sử dụng trong repo
+        resultSetMapping = "listCourse", // Đặt tên cho kết quả trả về -> sử dụng ở step 2
+        query = """
+                select c.*,
+                JSON_OBJECT("id", u.id, "name", u.name, "email", u.email, "phone", u.phone, "avatar", u.avatar) as user
+                from course c
+                left join user u
+                on c.user_id = u.id
+                """) // Định nghĩa câu lệnh native query
 @Table(name = "course")
 @Entity
 @Getter

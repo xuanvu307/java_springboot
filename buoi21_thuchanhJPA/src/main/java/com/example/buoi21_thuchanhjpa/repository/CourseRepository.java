@@ -28,6 +28,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
                                    @Param("category") String category);
 
 
-    @Query("select c from Course c")
-    List<Course> findCourseByAdmin(Pageable pageable);
+    @Query(nativeQuery = true, name = "findCourseByAdmin")
+    List<CourseDto> findCourseByAdmin(Pageable pageable);
 }
