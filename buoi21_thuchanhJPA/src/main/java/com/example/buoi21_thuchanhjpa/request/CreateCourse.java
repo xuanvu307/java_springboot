@@ -14,6 +14,7 @@ public class CreateCourse {
     private String description;
     private String type;
     private List<Integer> category;
+    private Integer price;
     private String thumbnail;
     private Integer userId;
 }

@@ -1,5 +1,6 @@
 package com.example.buoi21_thuchanhjpa.controller;
 
+import com.example.buoi21_thuchanhjpa.dto.CourseDto;
 import com.example.buoi21_thuchanhjpa.model.Course;
 import com.example.buoi21_thuchanhjpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("")
-    public List<Course> getAllCourse(@RequestParam(required = false) String name,
-                                     @RequestParam(required = false) String type,
-                                     @RequestParam(required = false) String category) {
+    public List<CourseDto> getAllCourse(@RequestParam(required = false) String name,
+                                        @RequestParam(required = false) String type,
+                                        @RequestParam(required = false) String category) {
         return userService.getAllCourse(name, type, category);
     }
 

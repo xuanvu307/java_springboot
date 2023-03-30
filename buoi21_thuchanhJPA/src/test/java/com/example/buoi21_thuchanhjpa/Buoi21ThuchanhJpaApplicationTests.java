@@ -89,9 +89,5 @@ class Buoi21ThuchanhJpaApplicationTests {
         }
     }
 
-    @Test
-    void find(){
-        List<Course> courses = courseRepository.findCourseDemo("a","onlinE",null);
-        courses.forEach(System.out::println);
-    }
+
 }

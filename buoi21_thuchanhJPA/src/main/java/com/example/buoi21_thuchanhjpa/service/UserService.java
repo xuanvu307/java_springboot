@@ -1,5 +1,6 @@
 package com.example.buoi21_thuchanhjpa.service;
 
+import com.example.buoi21_thuchanhjpa.dto.CourseDto;
 import com.example.buoi21_thuchanhjpa.exception.BadRequest;
 import com.example.buoi21_thuchanhjpa.model.Course;
 import com.example.buoi21_thuchanhjpa.repository.CourseRepository;
@@ -16,7 +17,8 @@ public class UserService {
     @Autowired
     private final CourseRepository courseRepository;
 
-    public List<Course> getAllCourse(String name, String type, String category) {
+    public List<CourseDto> getAllCourse(String name, String type, String category) {
+        System.out.println(category);
         return courseRepository.findCourseDemo(name,type,category);
     }
 
