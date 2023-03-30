@@ -1,5 +1,6 @@
 package com.example.buoi21_thuchanhjpa.service;
 
+import com.example.buoi21_thuchanhjpa.dto.PageDto;
 import com.example.buoi21_thuchanhjpa.exception.BadRequest;
 import com.example.buoi21_thuchanhjpa.model.Category;
 import com.example.buoi21_thuchanhjpa.model.Course;
@@ -29,8 +30,14 @@ public class AdminService {
     private CategoryRepository categoryRepository;
 
     // lấy danh sách theo trang
-    public List<Course> getListCourse(Integer page, Integer pageSize) {
-        return courseRepository.findCourseByAdmin(PageRequest.of(page, pageSize));
+    public PageDto getListCourse(Integer page, Integer pageSize) {
+        PageDto pageDto = new PageDto();
+        pageDto.setPageSize(pageSize);
+        pageDto.setCurrentPage(page);
+        pageDto.setTotalPages((int)courseRepository.count()/pageSize);
+        pageDto.setTotalItems((int)courseRepository.count());
+        pageDto.setData(courseRepository.findCourseByAdmin(PageRequest.of(page,pageSize)));
+        return pageDto;
     }
 
     // tạo khóa học mới

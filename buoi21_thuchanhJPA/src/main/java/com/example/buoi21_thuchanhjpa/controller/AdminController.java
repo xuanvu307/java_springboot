@@ -1,5 +1,6 @@
 package com.example.buoi21_thuchanhjpa.controller;
 
+import com.example.buoi21_thuchanhjpa.dto.PageDto;
 import com.example.buoi21_thuchanhjpa.model.Course;
 import com.example.buoi21_thuchanhjpa.request.CreateCourse;
 import com.example.buoi21_thuchanhjpa.service.AdminService;
@@ -15,7 +16,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("")
-    public List<Course> getListCourse(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize){
+    public PageDto getListCourse(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize){
         return adminService.getListCourse(page,pageSize);
     }
 
