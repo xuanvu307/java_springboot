@@ -34,7 +34,7 @@ public class AdminService {
         PageDto pageDto = new PageDto();
         pageDto.setPageSize(pageSize);
         pageDto.setCurrentPage(page);
-        pageDto.setTotalPages((int)courseRepository.count()/pageSize);
+        pageDto.setTotalPages((int) Math.ceil((double) courseRepository.count()/pageSize));
         pageDto.setTotalItems((int)courseRepository.count());
         pageDto.setData(courseRepository.findCourseByAdmin(PageRequest.of(page,pageSize)));
         return pageDto;
