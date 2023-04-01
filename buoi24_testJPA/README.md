@@ -25,7 +25,10 @@ spring.jpa.properties.hibernate.format_sql=true
 Kế thừa từ 3 interface 
 ListCrudRepository<T, ID>, 
 ListPagingAndSortingRepository<T, ID>, 
-QueryByExampleExecutor<T>
+QueryByExampleExecutor<T>,
+CrudRepository<T, ID>
+PagingAndSortingRepository<T, ID>
+Repository<T, ID>
 ## 6. Câu 6
 Post.java
 ```java
