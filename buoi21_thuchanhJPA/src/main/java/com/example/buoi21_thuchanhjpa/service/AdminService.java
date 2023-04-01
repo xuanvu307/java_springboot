@@ -31,6 +31,9 @@ public class AdminService {
 
     // lấy danh sách theo trang
     public PageDto getListCourse(Integer page, Integer pageSize) {
+        if (page < 1){
+            throw new BadRequest("Số trang phải từ 1 trở lên");
+        }
         PageDto pageDto = new PageDto();
         pageDto.setPageSize(pageSize);
         pageDto.setCurrentPage(page);
@@ -121,5 +124,9 @@ public class AdminService {
                 .orElseThrow(() -> {
                     throw new BadRequest("Khong tim thay id User");
                 });
+    }
+
+    public List<Course> getAllCourse() {
+        return courseRepository.findAll();
     }
 }

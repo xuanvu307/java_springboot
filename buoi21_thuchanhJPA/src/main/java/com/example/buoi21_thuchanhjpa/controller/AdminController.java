@@ -15,11 +15,15 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("")
+    @GetMapping("/page/")
     public PageDto getListCourse(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize){
         return adminService.getListCourse(page,pageSize);
     }
 
+    @GetMapping("")
+    public List<Course> getAllCourse(){
+        return adminService.getAllCourse();
+    }
     @PostMapping("")
     public Course creatCourse(@RequestBody CreateCourse request){
         return adminService.creatCourse(request);
