@@ -1,7 +1,9 @@
 package com.example.buoi21_thuchanhjpa.controller;
 
-import com.example.buoi21_thuchanhjpa.dto.PageDto;
+import com.example.buoi21_thuchanhjpa.dto.CourseDto;
+import com.example.buoi21_thuchanhjpa.model.Category;
 import com.example.buoi21_thuchanhjpa.model.Course;
+import com.example.buoi21_thuchanhjpa.model.User;
 import com.example.buoi21_thuchanhjpa.request.CreateCourse;
 import com.example.buoi21_thuchanhjpa.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/page/")
-    public PageDto getListCourse(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize){
+    @GetMapping("/page")
+    public List<CourseDto> getListCourse(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize){
         return adminService.getListCourse(page,pageSize);
     }
 
@@ -41,5 +43,14 @@ public class AdminController {
     @DeleteMapping("{id}")
     public void deleteCourse(@PathVariable Integer id){
         adminService.deleteCourse(id);
+    }
+
+    @GetMapping("/user")
+    public List<User> getAllUser(){
+        return adminService.getAllUser();
+    }
+    @GetMapping("/category")
+    public List<Category> getAllCategory(){
+        return adminService.getAllCategory();
     }
 }

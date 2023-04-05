@@ -1,6 +1,6 @@
 package com.example.buoi21_thuchanhjpa.service;
 
-import com.example.buoi21_thuchanhjpa.dto.PageDto;
+import com.example.buoi21_thuchanhjpa.dto.CourseDto;
 import com.example.buoi21_thuchanhjpa.exception.BadRequest;
 import com.example.buoi21_thuchanhjpa.model.Category;
 import com.example.buoi21_thuchanhjpa.model.Course;
@@ -30,17 +30,8 @@ public class AdminService {
     private CategoryRepository categoryRepository;
 
     // lấy danh sách theo trang
-    public PageDto getListCourse(Integer page, Integer pageSize) {
-        if (page < 1){
-            throw new BadRequest("Số trang phải từ 1 trở lên");
-        }
-        PageDto pageDto = new PageDto();
-        pageDto.setPageSize(pageSize);
-        pageDto.setCurrentPage(page);
-        pageDto.setTotalPages((int) Math.ceil((double) courseRepository.count() / pageSize));
-        pageDto.setTotalItems((int) courseRepository.count());
-        pageDto.setData(courseRepository.findCourseByAdmin(PageRequest.of(page-1, pageSize)));
-        return pageDto;
+    public List<CourseDto> getListCourse(Integer page, Integer pageSize) {
+       return courseRepository.findCourseByAdmin(PageRequest.of(page,pageSize));
     }
 
     // tạo khóa học mới
@@ -128,5 +119,13 @@ public class AdminService {
 
     public List<Course> getAllCourse() {
         return courseRepository.findAll();
+    }
+
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
+
+    public List<Category> getAllCategory() {
+        return categoryRepository.findAll();
     }
 }

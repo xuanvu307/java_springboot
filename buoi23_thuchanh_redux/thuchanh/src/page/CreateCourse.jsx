@@ -1,7 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useGetAllCategoryQuery } from '../app/service/CategoryService';
+import { useGetAllUserQuery } from '../app/service/UserService';
 
 function CreateCourse() {
+    const { data: dataCategorys, isLoading : isLoadingCategory , isError: isErrorCategory } = useGetAllCategoryQuery();
+    const {data: dataUser, isLoading: isLoadingUser, isError: isErrorUser} = useGetAllUserQuery();
+
+    if ( isErrorCategory || isErrorUser) {
+        return <h2>Loading...</h2>
+    }
+
+    if (isErrorCategory || isErrorUser) {
+        return <h2>Error ....</h2>
+    }
+
     return (
         <>
             <div className="course-list mt-4 mb-4">

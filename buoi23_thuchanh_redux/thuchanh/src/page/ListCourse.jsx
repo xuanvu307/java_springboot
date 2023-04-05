@@ -19,6 +19,7 @@ function ListCourse() {
         .then(()=> alert("Xóa thành công"))
         .catch(err => alert(err))
     }
+
     return (
         <>
             <div className="course-list mt-4 mb-4">
