@@ -45,7 +45,6 @@ public class AdminService {
                 .description(request.getDescription())
                 .type(request.getType())
                 .categories(categories)
-                .thumbnail(request.getThumbnail())
                 .price(request.getPrice())
                 .user(user)
                 .build();
@@ -79,7 +78,6 @@ public class AdminService {
             course.setType(request.getType());
             course.setPrice(request.getPrice());
             course.setCategories(categories);
-            course.setThumbnail(request.getThumbnail());
             course.setUser(user);
 
             courseRepository.save(course);

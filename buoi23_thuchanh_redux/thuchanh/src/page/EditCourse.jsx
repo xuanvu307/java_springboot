@@ -1,118 +1,219 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { useGetAllCategoryQuery } from '../app/service/CategoryService';
-import { useDeleteCourseMutation, useGetCourseByIdQuery } from '../app/service/CourseService';
-import { useGetAllUserQuery } from '../app/service/UserService';
+import { Link, Navigate, useParams } from 'react-router-dom'
+import { Controller } from "react-hook-form";
+import { getCategoryOptions, getTypeOptions, getUserOptions } from './fetchData/Options';
+import useFetchQuery from './hooks/useFetchQuery';
+import Select from "react-select";
+import { useGetCourseByIdQuery } from '../app/service/CourseService';
+import useUpdate from './hooks/useUpdate';
 
 function EditCourse() {
     const { courseId } = useParams();
-    const { data: dataCourses, isLoading : isLoadingCourse, isError: isErrorCourse} = useGetCourseByIdQuery(courseId);
-    const { data: dataCategorys, isLoading : isLoadingCategory , isError: isErrorCategory } = useGetAllCategoryQuery();
-    const {data: dataUser, isLoading: isLoadingUser, isError: isErrorUser} = useGetAllUserQuery();
-    
-    const [deleteCourse] = useDeleteCourseMutation();
+    const { data: dataCourses, isLoading: isLoadingCourse, isError: isErrorCourse } = useGetCourseByIdQuery(courseId);
+    const { categories, users, isLoading } = useFetchQuery();
+    const { control, register, handleSubmit, errors, onUpdateCourse, handleDelete } = useUpdate();
 
+    const categoryOptions = getCategoryOptions(categories);
+    const userOptions = getUserOptions(users);
+    const typeOptions = getTypeOptions();
 
-    if (isLoadingCourse || isErrorCategory || isErrorUser) {
-        return <h2>Loading...</h2>
+    if (isLoading || isLoadingCourse) {
+        return <h2>Loading ...</h2>;
     }
+    const categoryDefault = getCategoryOptions(dataCourses.categories);
 
-    if (isErrorCategory || isErrorCourse || isErrorUser) {
-        return <h2>Error ....</h2>
-    }
-
-    const handleDelete = (id) => {
-        deleteCourse(id)
-            .unwrap()
-            .then(() => alert("Xóa thành công"))
-            .catch(err => alert(err))
-    }
-
-    const handleUpdate = (id) =>{
-        console.log("đánh dấu")
-    }
+    console.log()
     return (
         <>
             <div className="course-list mt-4 mb-4">
                 <div className="container">
-                    <div className="mb-4 d-flex justify-content-between">
-                        <div>
-                            <button className="btn-custom btn-update-course" onClick={() => handleUpdate({courseId})}>
-                                <span><i className="fa-solid fa-plus"></i></span>
-                                Cập nhật
-                            </button>
-                            <Link to={"/admin/course"} className="btn-custom btn-refresh">
-                                <span><i className="fa-solid fa-angle-left"></i></span>
-                                Quay lại
-                            </Link>
-                        </div>
-                        <div>
-                            <button className="btn-custom btn-delete-course bg-danger" onClick={() => handleDelete({ courseId })}>
-                                <span><i className="fa-solid fa-trash-can"></i></span>
-                                Xóa
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="course-list-inner p-2">
-                        <div className="row">
-                            <div className="col-md-8">
-                                <div className="mb-3">
-                                    <label htmlFor="course-name" className="form-label fw-bold">Tên khóa học</label>
-                                    <input type="text" className="form-control" id="course-name" defaultValue={dataCourses.name} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="course-description" className="form-label fw-bold">Mô tả</label>
-                                    <textarea className="form-control" id="course-description" rows="10" defaultValue={dataCourses.description}></textarea>
-                                </div>
+                    <form onSubmit={handleSubmit(onUpdateCourse)}>
+                        <div className="mb-4 d-flex justify-content-between">
+                            <div>
+                                <button className="btn-custom btn-update-course" type='submit'>
+                                    <span><i className="fa-solid fa-plus"></i></span>
+                                    Cập nhật
+                                </button>
+                                <Link to={"/admin/course"} className="btn-custom btn-refresh">
+                                    <span><i className="fa-solid fa-angle-left"></i></span>
+                                    Quay lại
+                                </Link>
                             </div>
-                            <div className="col-md-4">
-                                <div className="mb-3">
-                                    <label htmlFor="course-type" className="form-label fw-bold">Hình thức học</label>
-                                    <select className="form-control" id="course-type" defaultValue={dataCourses.type}>
-                                        <option hidden>- Chọn hình thức học</option>
-                                        <option value="online">Online</option>
-                                        <option value="onlab">Onlab</option>
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="course-topic" className="form-label fw-bold">Chủ đề</label>
-                                    
-                                    <select className="form-control" id="course-topic" multiple="multiple">
-                                    {dataCourses.categories.map(e => (
-                                        <option value={e.id} key={e.id}>{e.name}</option>
+                            <div>
+                                <button className="btn-custom btn-delete-course bg-danger" onClick={() => handleDelete(courseId)}>
+                                    <span><i className="fa-solid fa-trash-can"></i></span>
+                                    Xóa
+                                </button>
+                            </div>
+                        </div>
 
-                                    ))}
-                                        {/* <option value="1">Backend</option>
-                                        <option value="2">Frontend</option>
-                                        <option value="3">Mobile</option>
-                                        <option value="4">Lập trình web</option>
-                                        <option value="5">Database</option>
-                                        <option value="6">Devops</option> */}
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="course-supporter" className="form-label fw-bold">Tư vấn viên</label>
-                                    <select className="form-control" id="course-supporter">
-                                        <option hidden>{dataCourses.user.name}</option>
-                                        {dataUser.length > 0 && dataUser.map((e, i) => (
-                                            <option value={e.id} key={e.id}>{e.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="form-label fw-bold">Thumnail</label>
-                                    <div className="course-logo-preview mb-3 rounded">
-                                        <img id="course-logo-preview" className="rounded" />
+                        <div className="course-list-inner p-2">
+                            <div className="row">
+                                <div className="col-md-8">
+                                    <div className="mb-3">
+                                        <label
+                                            htmlFor="course-name"
+                                            className="form-label fw-bold"
+                                        >
+                                            ID Khóa học
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="course-name"
+                                            defaultValue={dataCourses.id}
+                                            disabled
+                                        />
+                                        <p className="text-danger fst-italic mt-2">
+                                            {errors.name?.message}
+                                        </p>
+                                        <label
+                                            htmlFor="course-name"
+                                            className="form-label fw-bold"
+                                        >
+                                            Tên khóa học
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="course-name"
+                                            defaultValue={dataCourses?.name}
+                                            {...register("name")}
+                                        />
                                     </div>
+                                    <div className="mb-3">
+                                        <label
+                                            htmlFor="course-description"
+                                            className="form-label fw-bold"
+                                        >
+                                            Mô tả
+                                        </label>
+                                        <textarea
+                                            className="form-control"
+                                            id="course-description"
+                                            rows="10"
+                                            defaultValue={dataCourses?.description}
+                                            {...register("description")}
+                                        ></textarea>
+                                        <p className="text-danger fst-italic mt-2">
+                                            {errors.description?.message}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="mb-3">
+                                        <label
+                                            htmlFor="course-price"
+                                            className="form-label fw-bold"
+                                        >
+                                            Giá
+                                        </label>
 
-                                    <label htmlFor="course-logo-input" className="btn btn-warning" />Đổi ảnh
-                                    <input type="file" id="course-logo-input" className="d-none" />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="course-price"
+                                            defaultValue={dataCourses.price}
+                                            {...register("price")}
+                                        />
+                                        <p className="text-danger fst-italic mt-2">
+                                            {errors.price?.message}
+                                        </p>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label
+                                            htmlFor="course-type"
+                                            className="form-label fw-bold"
+                                        >
+                                            Hình thức học
+                                        </label>
+                                        <Controller
+                                            name="type"
+                                            control={control}
+                                            defaultValue={dataCourses?.type}
+                                            render={({ field }) => (
+                                                <Select
+                                                    {...field}
+                                                    placeholder="-- Chọn hình thức học --"
+                                                    options={typeOptions}
+                                                    value={typeOptions.find(
+                                                        (c) =>
+                                                            c.value === field.value
+                                                    )}
+                                                    onChange={(val) =>
+                                                        field.onChange(val.value)
+                                                    }
+                                                />
+                                            )}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label
+                                            htmlFor="course-topic"
+                                            className="form-label fw-bold"
+                                        >
+                                            Chủ đề
+                                        </label>
+                                        <Controller
+                                            name="category"
+                                            control={control}
+                                            defaultValue = {dataCourses.categories.map(e => e.id)}
+                                            render={({
+                                                field: { onChange, value, ref },
+                                            }) => (
+                                                <Select
+                                                    closeMenuOnSelect={false}
+                                                    placeholder="-- Chọn danh mục --"
+                                                    inputRef={ref}
+                                                    defaultValue={
+                                                        categoryDefault
+                                                    }
+                                                    value={categoryOptions.find(
+                                                        (c) => c.value === value
+                                                    )}
+                                                    onChange={(val) =>
+                                                        onChange(
+                                                            val.map((c) => c.value)
+                                                        )
+                                                    }
+                                                    options={categoryOptions}
+                                                    isMulti
+                                                />
+                                            )}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label
+                                            htmlFor="course-topic"
+                                            className="form-label fw-bold"
+                                        >
+                                            Nhân viên tư vấn
+                                        </label>
+                                        <Controller
+                                            name="userId"
+                                            control={control}
+                                            defaultValue = {dataCourses.user.id}
+                                            render={({ field }) => (
+                                                <Select
+                                                    {...field}
+                                                    placeholder="-- Chọn nhân viên tư vấn --"
+                                                    defaultValue={{ label: dataCourses.user.name, value: dataCourses.user.id }}
+                                                    options={userOptions}
+                                                    value={userOptions.find(
+                                                        (c) =>
+                                                            c.value === field.value
+                                                    )}
+                                                    onChange={(val) =>
+                                                        field.onChange(val.value)
+                                                    }
+                                                />
+                                            )}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </>

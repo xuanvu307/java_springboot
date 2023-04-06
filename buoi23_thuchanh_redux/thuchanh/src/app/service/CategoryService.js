@@ -10,8 +10,6 @@ export const categoryApi = createApi({
         })
     }),
 })
-
-
 export const {
     useGetAllCategoryQuery,
 } = categoryApi
