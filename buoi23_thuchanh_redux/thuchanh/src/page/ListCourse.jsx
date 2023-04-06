@@ -51,7 +51,7 @@ function ListCourse() {
                             <tbody>
                                 {data.length > 0 && data.map((c, index) => (
                                     <tr key={c.id}>
-                                        <td>{c.id}</td>
+                                        <td>{index+1}</td>
                                         <td>
                                             <Link to={`/admin/course/${c.id}`}>{c.name}</Link>
                                         </td>
