@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Controller } from "react-hook-form";
 import { getCategoryOptions, getTypeOptions, getUserOptions } from './fetchData/Options';
 import useFetchQuery from './hooks/useFetchQuery';
@@ -20,6 +20,7 @@ function EditCourse() {
     if (isLoading || isLoadingCourse) {
         return <h2>Loading ...</h2>;
     }
+
     const categoryDefault = getCategoryOptions(dataCourses.categories);
 
     console.log()
@@ -40,7 +41,7 @@ function EditCourse() {
                                 </Link>
                             </div>
                             <div>
-                                <button className="btn-custom btn-delete-course bg-danger" onClick={() => handleDelete(courseId)}>
+                                <button className="btn-custom btn-delete-course bg-danger" onClick={(e) => handleDelete(e)}>
                                     <span><i className="fa-solid fa-trash-can"></i></span>
                                     Xóa
                                 </button>
