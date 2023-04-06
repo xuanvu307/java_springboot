@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import { useCreateCourseMutation } from '../../app/service/CourseService';
 import { courseSchema } from "../schemas/schemas";
 
 const useCreate = () => {
     const [createCourse] = useCreateCourseMutation();
 
+    const navigate = useNavigate();
     // Khởi tạo form
     const {
         control,
@@ -24,7 +26,13 @@ const useCreate = () => {
     const onCreateCourse = (data) => {
         createCourse(data)
             .unwrap()
-            .then(() => alert("Tạo khóa học thành công"))
+            .then((data) => {
+                console.log(data)
+                alert("Tạo khóa học thành công")
+                setTimeout(() => {
+                    navigate(`/admin/course/${data.id}`, { replace: true });
+                }, 1000)
+            })
             .catch(err => alert(err.data.message))
     };
 

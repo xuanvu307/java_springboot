@@ -2,13 +2,13 @@ import { useDeleteCourseMutation, useUpdateCourseMutation } from '../../app/serv
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { courseSchema } from '../schemas/schemas';
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function useUpdate() {
-    const { courseId } = useParams();
+function useUpdate(courseId) {
     const [updateCourse] = useUpdateCourseMutation();
     const [deleteCourse] = useDeleteCourseMutation();
 
+    const navigate = useNavigate();
 
     const {
         control,
@@ -35,7 +35,7 @@ function useUpdate() {
             .then(alert("Xóa thành công"))
             .then(
                 setTimeout(() => {
-                    Navigate(`admin/course`, { replace: true });
+                    navigate(`/admin/course`, { replace: true });
                 }, 1000)
             )
             .catch(err => alert(err.data.message))

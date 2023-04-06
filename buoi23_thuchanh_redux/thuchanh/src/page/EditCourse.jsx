@@ -11,7 +11,7 @@ function EditCourse() {
     const { courseId } = useParams();
     const { data: dataCourses, isLoading: isLoadingCourse, isError: isErrorCourse } = useGetCourseByIdQuery(courseId);
     const { categories, users, isLoading } = useFetchQuery();
-    const { control, register, handleSubmit, errors, onUpdateCourse, handleDelete } = useUpdate();
+    const { control, register, handleSubmit, errors, onUpdateCourse, handleDelete } = useUpdate(courseId);
 
     const categoryOptions = getCategoryOptions(categories);
     const userOptions = getUserOptions(users);
@@ -56,22 +56,6 @@ function EditCourse() {
                                             htmlFor="course-name"
                                             className="form-label fw-bold"
                                         >
-                                            ID Khóa học
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="course-name"
-                                            defaultValue={dataCourses.id}
-                                            disabled
-                                        />
-                                        <p className="text-danger fst-italic mt-2">
-                                            {errors.name?.message}
-                                        </p>
-                                        <label
-                                            htmlFor="course-name"
-                                            className="form-label fw-bold"
-                                        >
                                             Tên khóa học
                                         </label>
                                         <input
@@ -81,6 +65,9 @@ function EditCourse() {
                                             defaultValue={dataCourses?.name}
                                             {...register("name")}
                                         />
+                                        <p className="text-danger fst-italic mt-2">
+                                            {errors.name?.message}
+                                        </p>
                                     </div>
                                     <div className="mb-3">
                                         <label
@@ -158,7 +145,7 @@ function EditCourse() {
                                         <Controller
                                             name="category"
                                             control={control}
-                                            defaultValue = {dataCourses.categories.map(e => e.id)}
+                                            defaultValue={dataCourses.categories.map(e => e.id)}
                                             render={({
                                                 field: { onChange, value, ref },
                                             }) => (
@@ -193,7 +180,7 @@ function EditCourse() {
                                         <Controller
                                             name="userId"
                                             control={control}
-                                            defaultValue = {dataCourses.user.id}
+                                            defaultValue={dataCourses.user.id}
                                             render={({ field }) => (
                                                 <Select
                                                     {...field}
