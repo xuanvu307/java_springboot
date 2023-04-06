@@ -16,9 +16,6 @@ function useUpdate() {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        defaultValues: {
-
-        },
         resolver: yupResolver(courseSchema),
         mode: "all",
     });
@@ -31,17 +28,20 @@ function useUpdate() {
             .catch(err => alert(err.data.message))
     };
 
-    const handleDelete = (id) => {
-        deleteCourse(id)
+    const handleDelete = (e) => {
+        e.preventDefault();
+        deleteCourse(courseId)
             .unwrap()
-            .then(() => alert("Xóa thành công"))
-            .catch(err => alert(err))
-            .finally(
+            .then(alert("Xóa thành công"))
+            .then(
                 setTimeout(() => {
-                    Navigate({ to: `admin/course` }, { replace: true });
+                    Navigate(`admin/course`, { replace: true });
                 }, 1000)
             )
+            .catch(err => alert(err.data.message))
+
     }
+
     return {
         control,
         register,
