@@ -43,6 +43,8 @@ function ListCourse() {
                                     <th>Tên khóa học</th>
                                     <th>Hình thức</th>
                                     <th>Chủ đề</th>
+                                    <th>Quản lý</th>
+                                    <th>Giá khóa học</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -56,6 +58,12 @@ function ListCourse() {
                                         <td className="text-info">{c.type}</td>
                                         <td>
                                             {c.categories.map(e => e.name).join(" , ")}
+                                        </td>
+                                        <td>
+                                            {c.user.name}
+                                        </td>
+                                        <td>
+                                            {c.price}
                                         </td>
                                         <td>
                                             <button className='btn btn-danger' onClick={() => handleDelete(c.id)}>Xóa</button>
