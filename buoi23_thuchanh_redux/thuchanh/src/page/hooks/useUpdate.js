@@ -39,7 +39,6 @@ function useUpdate(courseId) {
                 }, 1000)
             )
             .catch(err => alert(err.data.message))
-
     }
 
     return {
