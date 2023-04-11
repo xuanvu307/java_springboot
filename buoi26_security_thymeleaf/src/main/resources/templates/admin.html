@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Home Page</h1>
+
+<h2>Name: <span th:text="${name}"> </span></h2>
+
+<ul>
+    <a th:href="@{/}">
+        Homepage
+    </a>
+    <li sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/admin}">Admin</a>
+    </li>
+    <li sec:authorize="hasAnyRole('ADMIN', 'USER')">
+        <a th:href="@{/user}">User</a>
+    </li>
+    <li sec:authorize="hasRole('AUTHOR')">
+        <a th:href="@{/author}">Author</a>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,12 @@
+* {
+    font-size: 25px;
+}
+h2 {
+    color: blue;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
