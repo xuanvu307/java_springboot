@@ -7,12 +7,13 @@ export const courseApi = createApi({
     tagTypes :["Course"],
     endpoints: (builder) => ({
         getAllCourse: builder.query({
-            query: () => "courses",
+            query: () => `/course`,
             providesTags: ["Course"],
         }),
 
         getCourseById: builder.query({
-            query: (id) => `courses/${id}`
+            query: (id) => `courses/${id}`,
+            invalidatesTags :["Course"]
         }),
 
         createCourse: builder.mutation({
