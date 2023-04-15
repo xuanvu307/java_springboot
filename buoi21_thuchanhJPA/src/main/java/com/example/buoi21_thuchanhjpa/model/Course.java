@@ -34,8 +34,7 @@ import java.util.List;
                 select c.*,
                 JSON_OBJECT("id", u.id, "name", u.name, "email", u.email, "phone", u.phone, "avatar", u.avatar) as user
                 from course c
-                left join course_categories cc\s
-                on c.id = cc.course_id
+                left join course_categories cc on c.id = cc.course_id
                 left join category ct
                 on cc.categories_id = ct.id
                 left join user u
