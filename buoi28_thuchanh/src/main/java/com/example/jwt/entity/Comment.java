@@ -10,32 +10,38 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-@ToString
 @Entity
-@Table(name = "image")
-public class Image {
+@Table(name = "comment")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Lob
-    @Column(name = "data", columnDefinition = "LONGBLOB")
-    private byte[] data;
-
-    @Column(name = "type")
-    private String type;
+    @Column(name = "content")
+    private String content;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "blog_id")
+    private Blog blog;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @ToString.Exclude
     private User user;
 
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }
