@@ -66,7 +66,7 @@ function HomePage() {
           <footer className="entry-footer">
             <span>{b.createdAt}</span>
           </footer>
-          <Link className="entry-link" to="blogs/:blogId/:blogSlug"></Link>
+          <Link className="entry-link" to={`/blogs/${b.id}/${b.slug}`}></Link>
         </article>
       ))}
       <footer className="page-footer"><nav className="pagination">
