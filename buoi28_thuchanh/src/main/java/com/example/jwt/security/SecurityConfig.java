@@ -51,29 +51,31 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        String[] PUBLIC = {
-//                "/",
-//                "/login-handle",
-//                "/api/v1/***"
-//        };
-//        http
-//                .csrf().disable()
-//                .authorizeHttpRequests()
-//                .requestMatchers(PUBLIC).permitAll()
-//                .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
-//                .requestMatchers("/admin").hasRole("ADMIN")
-//                .requestMatchers("/author").hasAuthority("ROLE_AUTHOR")
-//                .anyRequest().authenticated()
-//                .and() // không tạo ra session cokie
-//                    .sessionManagement()
-//                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and() // xử lý lỗi
-//                    .exceptionHandling()
-//                    .authenticationEntryPoint(customAuthenticationEntryPoint)
-//                    .accessDeniedHandler(customAccessDeniedHandler)
-//                .and()// xác thực
-//                    .authenticationProvider(authenticationProvider())
-//                    .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+        String[] PUBLIC = {
+                "/",
+                "/login-handle",
+                "/api/v1/public/**"
+        };
+        http
+                .cors()
+                .and()
+                .csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers(PUBLIC).permitAll()
+                .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/admin").hasRole("ADMIN")
+                .requestMatchers("/author").hasAuthority("ROLE_AUTHOR")
+                .anyRequest().authenticated()
+                .and() // không tạo ra session cokie
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and() // xử lý lỗi
+                    .exceptionHandling()
+                    .authenticationEntryPoint(customAuthenticationEntryPoint)
+                    .accessDeniedHandler(customAccessDeniedHandler)
+                .and()// xác thực
+                    .authenticationProvider(authenticationProvider())
+                    .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

@@ -1,7 +1,7 @@
 package com.example.jwt.service;
 
 import com.example.jwt.entity.Blog;
-import com.example.jwt.mapper.BlogDto;
+import com.example.jwt.dto.BlogDto;
 import com.example.jwt.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,16 +15,15 @@ public class UserService {
     @Autowired
     private BlogRepository blogRepository;
 
-    public Page<BlogDto> getAllBlog(Integer page, Integer pageSize) {
-        blogRepository.findAll().forEach(System.out::println);
-        return blogRepository.getBlog(PageRequest.of(page,pageSize));
+    public Page<Blog> getAllBlog(Integer page, Integer pageSize) {
+        return blogRepository.findAll(PageRequest.of(page-1,pageSize));
+    }
+    public List<Blog> searchBlogByName(String term) {
+        return blogRepository.findByTitleContaining(term);
     }
 
-//    public List<Blog> getAllBlog() {
-//        return blogRepository.findAll();
-//    }
-
-    public List<Blog> searchBlogByName(String term) {
-        return null;
+    public Blog getBlogById(Integer id, String slug) {
+        System.out.println(blogRepository.findByIdAndAndSlug(id,slug));
+        return blogRepository.findByIdAndAndSlug(id,slug);
     }
 }

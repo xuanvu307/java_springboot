@@ -29,7 +29,7 @@ public class Image {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;

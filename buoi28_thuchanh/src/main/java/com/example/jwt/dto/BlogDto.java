@@ -1,4 +1,4 @@
-package com.example.jwt.mapper;
+package com.example.jwt.dto;
 
 import com.example.jwt.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;

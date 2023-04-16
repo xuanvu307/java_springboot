@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Entity
+@ToString
 @Table(name = "comment")
 public class Comment {
     @Id
@@ -27,11 +28,11 @@ public class Comment {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

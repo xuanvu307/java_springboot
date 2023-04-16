@@ -1,6 +1,6 @@
 package com.example.jwt.entity;
 
-import com.example.jwt.mapper.BlogDto;
+import com.example.jwt.dto.BlogDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -81,7 +81,7 @@ public class Blog {
     @Column(name = "status")
     private Boolean status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

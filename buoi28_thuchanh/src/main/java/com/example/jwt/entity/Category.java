@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "category")
 public class Category {
