@@ -1,11 +1,10 @@
 package com.example.jwt.controller;
 
 import com.example.jwt.entity.Blog;
-import com.example.jwt.dto.BlogDto;
+import com.example.jwt.entity.Comment;
 import com.example.jwt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +39,10 @@ public class UserController {
     @GetMapping("public/blogs/{id}/{slug}")
     public Blog getBlogById(@PathVariable Integer id, @PathVariable String slug){
         return userService.getBlogById(id, slug);
+    }
+
+    @GetMapping("public/blogs/{blogId}/comment")
+    public Page<Comment> getCommentOnBlog(@PathVariable Integer blogId, @RequestParam(defaultValue = "0") Integer page){
+        return userService.getCommentByBlog(blogId, page);
     }
 }

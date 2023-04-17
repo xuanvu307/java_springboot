@@ -51,9 +51,9 @@ class JwtApplicationTests {
         Role authorRole = roleRepository.findByName("AUTHOR").orElse(null);
 
         List<User> users = List.of(
-                new User(null, "Bùi Hiên", "hien@gmail.com", passwordEncoder.encode("111"), null,List.of(adminRole, userRole)),
-                new User(null, "Minh Duy", "duy@gmail.com", passwordEncoder.encode("111"),null, List.of(userRole)),
-                new User(null, "Thu Hằng", "hang@gmail.com", passwordEncoder.encode("111"),null, List.of(authorRole, userRole))
+                new User(null, "Nguyễn Văn A", "a@gmail.com", passwordEncoder.encode("111"), null,List.of(adminRole, userRole)),
+                new User(null, "Trần Văn B", "b@gmail.com", passwordEncoder.encode("111"),null, List.of(userRole)),
+                new User(null, "Hoàng Thị C", "c@gmail.com", passwordEncoder.encode("111"),null, List.of(authorRole, userRole))
         );
 
         userRepository.saveAll(users);
@@ -124,5 +124,14 @@ class JwtApplicationTests {
                     .build();
             commentRepository.save(comment);
         }
+    }
+
+    @Test
+    void testC(){
+        System.out.println(categoryRepository.findGetAllCategory());
+    }
+    @Test
+    void testCD(){
+        System.out.println(blogRepository.getTopByCategory());
     }
 }

@@ -9,10 +9,8 @@ function SearchPage() {
         <h2>Loading.....</h2>
     )
     const [valueInput, setValueInput] = useState("");
-    console.log(result.data);
 
     const handleValue = (e) => {
-        console.log(valueInput)
         if (e.key === "Enter") {
             getBlogByname(valueInput)
         }
@@ -33,16 +31,19 @@ function SearchPage() {
             <div id="searchbox">
                 <input id="searchInput" value={valueInput} onChange={e => setValueInput(e.target.value)} onKeyDown={handleValue} autoFocus="" placeholder="Tìm kiếm bài viết" type="search" autoComplete="off" />
                 <ul id="searchResults">
+                    {result?.data?.length === 0 && (
+                        <h2>Không có kết quả phù hợp</h2>
+                    )}
                     {result?.data?.map((e) => (
                         <li className="post-entry" key={e.id}>
                             <header className="entry-header">
                                 {e.title}
                             </header>
-                            <Link to = {`/blogs/${e.id}/${e.slug}`} aria-label="Truyền dữ liệu giữa React Components"></Link>
+                            <Link to={`/blogs/${e.id}/${e.slug}`} aria-label="Truyền dữ liệu giữa React Components"></Link>
                         </li>
                     ))}
-            </ul>
-        </div>
+                </ul>
+            </div>
         </main >
     )
 }

@@ -6,7 +6,6 @@ function CategoryDetail() {
         <header className="entry-header">
             <h1>Tag : Java</h1>
         </header>
-
         <article className="post-entry">
             <header className="entry-header">
                 <h2>

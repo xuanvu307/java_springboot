@@ -1,6 +1,5 @@
 package com.example.jwt.entity;
 
-import com.example.jwt.dto.BlogDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,38 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@SqlResultSetMappings(value = {
-        @SqlResultSetMapping(
-                name = "listBlog",
-                classes  = @ConstructorResult(
-                        targetClass = BlogDto.class,
-                        columns = {
-                                @ColumnResult(name = "id", type = Integer.class),
-                                @ColumnResult(name = "title", type = String.class),
-                                @ColumnResult(name = "description", type = String.class),
-                                @ColumnResult(name = "content", type = String.class),
-                                @ColumnResult(name = "thumbnail", type = String.class),
-                                @ColumnResult(name = "created_at", type = LocalDateTime.class),
-                                @ColumnResult(name = "updated_at", type = LocalDateTime.class),
-                                @ColumnResult(name = "pulished_at", type = LocalDateTime.class),
-                                @ColumnResult(name = "user", type = String.class)
-                        }
-                )
-        )
-})
-
-@NamedNativeQuery(
-        name = "getBlog",
-        resultSetMapping = "listBlog",
-        query = """
-                select b.*,
-                JSON_OBJECT("id", u.id, "name", u.name, "email", u.email,"avatar", u.avatar) as user
-                from blog b
-                left join user u on b.user_id = u.id
-                left join blog_category bc on b.id = bc.blog_id
-                left join category c on bc.categoriy_id = c.id
-                """
-)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
