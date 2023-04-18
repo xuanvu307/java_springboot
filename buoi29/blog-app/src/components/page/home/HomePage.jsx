@@ -60,15 +60,16 @@ function HomePage() {
           <Link className="entry-link" to={`/blogs/${b.id}/${b.slug}`}></Link>
         </article>
       ))}
-      <footer className="page-footer"><nav className="pagination">
-        {!result?.data?.first &&
-          <button className="prev" onClick={prePage}>« Trang trước</button>
-        }
-        {
-          !result?.data?.last &&
-          <button className="next" onClick={nextPage}>Trang tiếp theo »</button>
-        }
-      </nav>
+      <footer className="page-footer">
+        <nav className="pagination">
+          {!result?.data?.first &&
+            <button className="prev" onClick={prePage}>« Trang trước</button>
+          }
+          {
+            !result?.data?.last &&
+            <button className="next" onClick={nextPage}>Trang tiếp theo »</button>
+          }
+        </nav>
       </footer>
     </main>
   )
