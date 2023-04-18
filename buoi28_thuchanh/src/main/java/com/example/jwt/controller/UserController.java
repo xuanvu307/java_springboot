@@ -1,5 +1,6 @@
 package com.example.jwt.controller;
 
+import com.example.jwt.dto.CategoryDto;
 import com.example.jwt.entity.Blog;
 import com.example.jwt.entity.Comment;
 import com.example.jwt.service.UserService;
@@ -30,19 +31,31 @@ public class UserController {
     }
 
 //    3. Lấy danh sách category
+    @GetMapping("public/categories")
+    public  List<CategoryDto> getAllCategory(){
+        return userService.getAllCategory();
+    }
 
-//    4. Lấy danh sách category được sử dụng nhiều nhất
+    //    4. Lấy danh sách category được sử dụng nhiều nhất
 
-//    5. Lấy danh sách bài viết áp dụng category
+    @GetMapping("public/categories/top5")
+    public  Page<CategoryDto> getTopCategory(){
+        return userService.getTopCategory();
+    }
+    //    5. Lấy danh sách bài viết áp dụng category
+    @GetMapping("/public/category/{name}")
+    public List<Blog> getBlogByCategoryName(@PathVariable String name) {
+        return userService.getBlogByCategoryName(name);
+    }
 
-//    6. Lấy chi tiết bài viết
+    //    6. Lấy chi tiết bài viết
     @GetMapping("public/blogs/{id}/{slug}")
-    public Blog getBlogById(@PathVariable Integer id, @PathVariable String slug){
+    public Blog getBlogById(@PathVariable Integer id, @PathVariable String slug) {
         return userService.getBlogById(id, slug);
     }
 
     @GetMapping("public/blogs/{blogId}/comment")
-    public Page<Comment> getCommentOnBlog(@PathVariable Integer blogId, @RequestParam(defaultValue = "0") Integer page){
+    public Page<Comment> getCommentOnBlog(@PathVariable Integer blogId, @RequestParam(defaultValue = "0") Integer page) {
         return userService.getCommentByBlog(blogId, page);
     }
 }

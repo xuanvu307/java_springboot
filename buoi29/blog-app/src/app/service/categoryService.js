@@ -8,7 +8,7 @@ export const categoryApi = createApi({
             query : () => 'categories',
         }),
         getTopCategory: builder.query({
-            query : () => '/category/top5',
+            query : () => 'categories/top5',
         }),
         getBlogByCategory: builder.query({
             query : (data) => `category/${data}`,

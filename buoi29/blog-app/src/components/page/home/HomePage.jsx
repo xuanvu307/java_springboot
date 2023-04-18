@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import {  useLazyGetAllBlogQuery } from '../../../app/service/blogService'
+import { useLazyGetAllBlogQuery } from '../../../app/service/blogService'
+import { useGetTopCategoryQuery } from '../../../app/service/categoryService';
 
 function HomePage() {
-  const [ getAllBlog , result, isLoading ] = useLazyGetAllBlogQuery();
-  // const {data: dataCategory, isLoading : isLoadingCategory} = useGetTopCategoryQuery();
+  const [getAllBlog, result, isLoading] = useLazyGetAllBlogQuery();
+  const { data } = useGetTopCategoryQuery();
 
-  useEffect (() =>{
+  useEffect(() => {
     getAllBlog({ page: 1, pageSize: 5 });
   }, [])
-  
+
   if (isLoading) (
     <h2>Loading.....</h2>
   )
-  const prePage = () =>{
+  const prePage = () => {
     getAllBlog({ page: result.originalArgs.page - 1, pageSize: 5 });
   }
-  const nextPage = () =>{
+  const nextPage = () => {
     getAllBlog({ page: result.originalArgs.page + 1, pageSize: 5 });
   }
 
-  console.log(result)
+  console.log(data)
   return (
     <main className="main">
       <header className="entry-header">
@@ -30,26 +31,17 @@ function HomePage() {
         </h1>
       </header>
       <ul className="terms-tags top-tags">
-        <li>
-          <Link href="./tagDetail.html">Fantasy
-            <sup><strong><sup>9</sup></strong></sup></Link>
-        </li>
-        <li>
-          <Link href="./tagDetail.html">Shoujo Ai
-            <sup><strong><sup>8</sup></strong></sup></Link>
-        </li>
-        <li>
-          <a href="./tagDetail.html">Superpower
-            <sup><strong><sup>6</sup></strong></sup></a>
-        </li>
-        <li>
-          <a href="./tagDetail.html">Action
-            <sup><strong><sup>5</sup></strong></sup></a>
-        </li>
-        <li>
-          <a href="./tagDetail.html">Music
-            <sup><strong><sup>5</sup></strong></sup></a>
-        </li>
+        {data?.content?.map(e => (
+          <li>
+            <Link to={`/categories/${e.name}`}>{e.name}
+              <sup>
+                <strong>
+                  <sup>{e.used}</sup>
+                </strong>
+              </sup>
+            </Link>
+          </li>
+        ))}
       </ul>
       {result?.data?.content.map((b) => (
         <article className="post-entry" key={b.id}>
@@ -74,7 +66,7 @@ function HomePage() {
           <button className="prev" onClick={prePage}>« Trang trước</button>
         }
         {
-          !result?.data?.last && 
+          !result?.data?.last &&
           <button className="next" onClick={nextPage}>Trang tiếp theo »</button>
         }
       </nav>

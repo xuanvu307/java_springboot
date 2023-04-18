@@ -6,6 +6,7 @@ import com.github.slugify.Slugify;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -126,12 +127,13 @@ class JwtApplicationTests {
         }
     }
 
-    @Test
-    void testC(){
-        System.out.println(categoryRepository.findGetAllCategory());
-    }
-    @Test
-    void testCD(){
-        System.out.println(blogRepository.getTopByCategory());
-    }
+//    @Test
+//    void testC(){
+//        System.out.println(blogRepository.findByCategorie("Backend"));
+//    }
+
+//    @Test
+//    void testas(){
+//        System.out.println(blogRepository.getAllByStatusTrueAndOrderByPulishedAtDesc(PageRequest.of(0,2)));
+//    }
 }
