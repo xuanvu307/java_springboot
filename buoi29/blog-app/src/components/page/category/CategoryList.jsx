@@ -8,7 +8,7 @@ function CategoryList() {
   if (isLoading) (
     <h2>Loading.....</h2>
   )
-  console.log(data)
+
   return (
     <main className="main">
       <header className="page-header">

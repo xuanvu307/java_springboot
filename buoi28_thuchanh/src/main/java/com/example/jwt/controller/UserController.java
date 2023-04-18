@@ -48,6 +48,7 @@ public class UserController {
         return userService.getBlogByCategoryName(name);
     }
 
+
     //    6. Lấy chi tiết bài viết
     @GetMapping("public/blogs/{id}/{slug}")
     public Blog getBlogById(@PathVariable Integer id, @PathVariable String slug) {

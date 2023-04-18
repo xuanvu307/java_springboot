@@ -6,7 +6,6 @@ function CategoryDetail() {
     const { categoryName } = useParams();
     const { data } = useGetBlogByCategoryQuery(categoryName)
 
-    console.log(data);
     return (
         <main className="main">
             <header className="entry-header">

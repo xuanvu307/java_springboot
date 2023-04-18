@@ -21,7 +21,6 @@ function HomePage() {
     getAllBlog({ page: result.originalArgs.page + 1, pageSize: 5 });
   }
 
-  console.log(data)
   return (
     <main className="main">
       <header className="entry-header">
@@ -32,7 +31,7 @@ function HomePage() {
       </header>
       <ul className="terms-tags top-tags">
         {data?.content?.map(e => (
-          <li>
+          <li key={e.id}>
             <Link to={`/categories/${e.name}`}>{e.name}
               <sup>
                 <strong>

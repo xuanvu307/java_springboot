@@ -15,6 +15,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Query("select new com.example.jwt.dto.CategoryDto(c.id, c.name,count(b)) " +
             "from Blog b " +
             "join b.categories c " +
+            "where b.status = true "+
             "group by c.id, c.name " +
             "order by count(b) desc ")
     List<CategoryDto> getAllCategoryDto();
@@ -23,6 +24,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Query("select new com.example.jwt.dto.CategoryDto(c.id, c.name,count(b)) " +
             "from Blog b " +
             "join b.categories c " +
+            "where b.status = true "+
             "group by c.id, c.name " +
             "order by count(b) desc ")
     Page<CategoryDto> getCategories(Pageable pageable);

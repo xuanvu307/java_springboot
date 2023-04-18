@@ -27,6 +27,7 @@ public class UserService {
 
     public Page<Blog> getAllBlog(Integer page, Integer pageSize) {
         return blogRepository.getAllByStatusTrueOrderByPulishedAtDesc(PageRequest.of(page-1,pageSize));
+//        return blogRepository.get(PageRequest.of(page-1,pageSize));
     }
 
     public List<Blog> searchBlogByName(String term) {
@@ -41,12 +42,10 @@ public class UserService {
         return commentRepository.findByBlog_IdAndBlog_StatusTrueOrderByCreatedAtDesc(blogId, PageRequest.of(page,3));
     }
 
-//    public List<Blog> getBlogByCategoryName(String name) {
-//        return blogRepository.findByCategories_NameContainingIgnoreCaseAndStatusTrue(name);
-//    }
-public List<Blog> getBlogByCategoryName(String name) {
-    return blogRepository.s(name);
-}
+    public List<Blog> getBlogByCategoryName(String name) {
+        return blogRepository.findByCategories_NameContainingIgnoreCaseAndStatusTrue(name);
+    }
+
     public List<CategoryDto> getAllCategory() {
         return categoryRepository.getAllCategoryDto();
     }
