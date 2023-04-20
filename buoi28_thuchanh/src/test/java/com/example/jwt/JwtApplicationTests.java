@@ -127,10 +127,7 @@ class JwtApplicationTests {
         }
     }
 
-//    @Test
-//    void testC(){
-//        System.out.println(blogRepository.findByCategorie("Backend"));
-//    }
+
 
 //    @Test
 //    void testas(){

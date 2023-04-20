@@ -20,7 +20,6 @@ public class UserController {
     //    1. Lấy danh sách blog
     @GetMapping("public/blogs")
     public Page<Blog> getAllBlog(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer pageSize) {
-
         return userService.getAllBlog(page, pageSize);
     }
 
@@ -30,18 +29,19 @@ public class UserController {
         return userService.searchBlogByName(term);
     }
 
-//    3. Lấy danh sách category
+    //    3. Lấy danh sách category
     @GetMapping("public/categories")
-    public  List<CategoryDto> getAllCategory(){
+    public List<CategoryDto> getAllCategory() {
         return userService.getAllCategory();
     }
 
     //    4. Lấy danh sách category được sử dụng nhiều nhất
 
     @GetMapping("public/categories/top5")
-    public  Page<CategoryDto> getTopCategory(){
+    public Page<CategoryDto> getTopCategory() {
         return userService.getTopCategory();
     }
+
     //    5. Lấy danh sách bài viết áp dụng category
     @GetMapping("/public/category/{name}")
     public List<Blog> getBlogByCategoryName(@PathVariable String name) {
