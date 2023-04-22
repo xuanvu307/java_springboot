@@ -44,7 +44,6 @@ public class AdminService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username  = authentication.getName();
         User user = userRepository.findByEmail(username).orElseThrow(null);
-
         return blogRepository.findByUser(user, PageRequest.of(page, pageSize));
     }
 

@@ -20,9 +20,9 @@ function HomePage() {
   const nextPage = () => {
     getAllBlog({ page: result.originalArgs.page + 1, pageSize: 5 });
   }
-  console.log(result?.data?.content.map(e =>(
-     e.createdAt
-  )))
+  // console.log(result?.data?.content.map(e =>(
+  //    e.createdAt
+  // )))
   return (
     <main className="main">
       <header className="entry-header">
