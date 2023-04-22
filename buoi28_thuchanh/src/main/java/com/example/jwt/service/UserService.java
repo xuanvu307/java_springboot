@@ -27,7 +27,6 @@ public class UserService {
 
     public Page<Blog> getAllBlog(Integer page, Integer pageSize) {
         return blogRepository.getAllByStatusTrueOrderByPulishedAtDesc(PageRequest.of(page-1,pageSize));
-//        return blogRepository.get(PageRequest.of(page-1,pageSize));
     }
 
     public List<Blog> searchBlogByName(String term) {

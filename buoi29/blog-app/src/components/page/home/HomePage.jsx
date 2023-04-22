@@ -20,7 +20,9 @@ function HomePage() {
   const nextPage = () => {
     getAllBlog({ page: result.originalArgs.page + 1, pageSize: 5 });
   }
-
+  console.log(result?.data?.content.map(e =>(
+     e.createdAt
+  )))
   return (
     <main className="main">
       <header className="entry-header">
@@ -55,7 +57,7 @@ function HomePage() {
             </p>
           </div>
           <footer className="entry-footer">
-            <span>{b.createdAt}</span>
+            <span>{(Date.parse(b.createdAt))}</span>
           </footer>
           <Link className="entry-link" to={`/blogs/${b.id}/${b.slug}`}></Link>
         </article>

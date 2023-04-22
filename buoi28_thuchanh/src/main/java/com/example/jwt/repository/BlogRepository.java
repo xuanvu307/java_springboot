@@ -15,11 +15,8 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
     // 1. Lấy danh sách blog
     Page<Blog> getAllByStatusTrueOrderByPulishedAtDesc(Pageable pageable);
 
-    @Query(nativeQuery = true,
-            value = """
-                    select b.* from blog b
-                    """)
-    Page<Blog> get(Pageable pageable);
+//    @Query(nativeQuery = true, value = "select * from blog b")
+//    List<Blog> getBlogNative();
 
     // 2. Tìm kiếm blog
     List<Blog> findByTitleContainingAndStatusTrueOrderByPulishedAtDesc(String term);

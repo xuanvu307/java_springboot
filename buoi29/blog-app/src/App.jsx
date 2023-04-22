@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
 import Layout from './components/layout/Layout'
 import HomePage from './components/page/home/HomePage'
 import SearchPage from './components/page/search/SearchPage'
@@ -7,6 +6,7 @@ import CategoryList from './components/page/category/CategoryList'
 import CategoryDetail from './components/page/category/CategoryDetail'
 import BlogDetail from './components/page/blog/BlogDetail'
 import NotFound from './components/page/not-found/NotFound'
+import LoginPage from './components/page/login/LoginPage'
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
             element={<BlogDetail />}
           />
 
+          <Route path='login' element = {<LoginPage />}/>
           <Route path='*' element={<NotFound/>}/>
         </Route>
       </Routes>
