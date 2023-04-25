@@ -16,11 +16,6 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
     // 1. Lấy danh sách blog
     Page<Blog> getAllByStatusTrueOrderByPulishedAtDesc(Pageable pageable);
 
-    @Query(nativeQuery = true,
-            value = """
-                    select b.* from blog b
-                    """)
-    Page<Blog> get(Pageable pageable);
 
     // 2. Tìm kiếm blog
     List<Blog> findByTitleContainingAndStatusTrueOrderByPulishedAtDesc(String term);
@@ -37,4 +32,7 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
     Page<Blog> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     Page<Blog> findByUser(User user, Pageable pageable);
+
+    Page<Blog> findByUser_EmailEqualsIgnoreCase(String email, Pageable pageable);
+
 }

@@ -2,9 +2,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const blogApi = createApi({
     reducerPath: 'blogApi',
+    tagTypes :["Blog"],
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:8080/api/v1/admin',
         prepareHeaders: (headers, { getState }) => {
+
             const token = (getState()).auth.token
 
             // If we have a token set in state, let's assume that we should be passing it.
@@ -20,8 +22,9 @@ export const blogApi = createApi({
         getAllBlog: builder.query({
             query: ({ page, pageSize }) => `/blogs?page=${page}&pageSize=${pageSize}`,
         }),
-        getBlogByname: builder.query({
-            query: (data) => `/search?term=${data}`
+        getBlogByUsername: builder.query({
+            query: () => `/blogs/own-blogs`,
+            invalidatesTags: ["Blog"]
         }),
         getBlogById: builder.query({
             query: ({ blogId, blogSlug }) => `blogs/${blogId}/${blogSlug}`
@@ -29,8 +32,7 @@ export const blogApi = createApi({
     }),
 })
 export const {
-    useGetBlogByIdQuery,
-    useLazyGetAllBlogQuery,
-    useLazyGetBlogBynameQuery,
-    useGetAllBlogQuery
+    useGetAllBlogQuery,
+    useGetBlogByUsernameQuery,
+
 } = blogApi

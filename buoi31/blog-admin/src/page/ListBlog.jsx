@@ -4,6 +4,7 @@ import { useGetAllBlogQuery } from '../app/service/blogApi'
 
 function ListBlog() {
   const { data } = useGetAllBlogQuery({ page: 1, pageSize: 10 });
+
   console.log(data)
   return (
     <div>
@@ -34,10 +35,10 @@ function ListBlog() {
                       </tr>
                     </thead>
                     <tbody>
-                      {data?.content.map((e) => (
+                      {data?.content?.map((e) => (
                         <tr key={e.id}>
                           <td>
-                            <Link to={'/admin/blogs/1'}>
+                            <Link to={`/admin/blogs/${e.id}`}>
                               {e.title}
                             </Link>
                           </td>

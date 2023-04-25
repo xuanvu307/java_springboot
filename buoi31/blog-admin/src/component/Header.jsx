@@ -10,7 +10,7 @@ function Header() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        dispatch(logout)
+        dispatch(logout())
         navigate("/admin/login")
     }
     
@@ -19,7 +19,7 @@ function Header() {
             <nav className="d-flex justify-content-end align-items-center px-3">
                 <div className="dropdown">
                     <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        {auth.name}
+                        {auth?.name}
                     </a>
 
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">

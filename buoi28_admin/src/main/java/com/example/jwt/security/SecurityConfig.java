@@ -54,7 +54,7 @@ public class SecurityConfig {
         String[] PUBLIC = {
                 "/",
                 "/login-handle",
-                "/api/v1/public/**"
+                "/api/v1/**"
         };
         http
                 .cors()

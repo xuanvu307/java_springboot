@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom'
 function Sizebar() {
     const { auth } = useSelector(state => state.auth)
 
-    const render = () => {
+    const roles = auth.roles.map((role) => role.name);
 
-    }
     return (
         <div>
             <div className="sidebar">
@@ -22,10 +21,9 @@ function Sizebar() {
                             </span>
                             Quản lý bài viết
                         </h5>
-                        {auth.roles.map(e => (
-                            e.name === "ADMIN" &&
+                        {roles?.includes("ADMIN") &&
                             <>
-                                < ul className="m-0 p-0" key={e.id}>
+                                < ul className="m-0 p-0" >
                                     <li><Link to={'/admin/blogs'}>Danh sách bài viết</Link></li>
                                     <li><Link to={'/admin/blogs/own-blog'}>Bài viết của tôi</Link></li>
                                     <li><Link to={'/admin/blogs/create'}>Tạo bài viết</Link></li>
@@ -49,13 +47,13 @@ function Sizebar() {
                                         <li><Link href="#">Tạo user</Link></li>
                                     </ul>
                                 </div>
-                            </>,
-                            e.name === "AUTHOR" &&
-                            <ul className="m-0 p-0" key={e.id}>
+                            </>
+                        }
+                        {roles?.includes("AUTHOR") &&
+                            <ul className="m-0 p-0">
                                 <li><Link to={'/admin/blogs/own-blog'}>Bài viết của tôi</Link></li>
                                 <li><Link to={'/admin/blogs/create'}>Tạo bài viết</Link></li>
                             </ul>
-                        ))
                         }
                     </div>
                 </div>

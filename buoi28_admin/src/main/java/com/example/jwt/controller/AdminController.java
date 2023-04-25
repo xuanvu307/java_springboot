@@ -24,7 +24,7 @@ public class AdminController {
     }
 
     //    Lấy danh sách blog của user đang login (có phân trang, mặc định là pageSize = 10)
-//    GET : api/v1/admin/blogs/own-blogs?page={page}&pageSize={pageSize}
+    //    GET : api/v1/admin/blogs/own-blogs?page={page}&pageSize={pageSize}
     @GetMapping("blogs/own-blogs")
     public Page<Blog> getBlogByUser(@RequestParam(defaultValue = "1") Integer page,
                                     @RequestParam(defaultValue = "10") Integer pageSize) {
@@ -44,13 +44,13 @@ public class AdminController {
     }
 
     //    Cập nhật blog
-    @PutMapping("blogs")
+    @PutMapping("blogs/{id}")
     public Blog changeBlog(@PathVariable Integer id, @RequestBody ChangeBlogRequest request) {
         return adminService.changeBlog(id, request);
     }
 
     //    Xóa blog (xóa blog xóa luôn comment liên quan đến blog)
-    @DeleteMapping("blogs")
+    @DeleteMapping("blogs/{id}")
     public void deleteBlog(@PathVariable Integer id) {
         adminService.deleteBlog(id);
     }
@@ -78,13 +78,13 @@ public class AdminController {
     }
 
     //    Cập nhật category (Lưu ý tên category không được trùng nhau)
-    @PutMapping("categories")
+    @PutMapping("categories/{id}")
     public Category changeCategory(@PathVariable Integer id, @RequestBody ChangCategoryRequest request) {
         return adminService.changeCategory(id, request);
     }
 
     //    Xóa category (xóa blog áp dụng category trong bảng trung gian, không xóa blog trong bảng blog)
-    @DeleteMapping("categories")
+    @DeleteMapping("categories/{id}")
     public void deleteCategory(@PathVariable Integer id) {
         adminService.deleteCategory(id);
     }
@@ -104,7 +104,7 @@ public class AdminController {
     }
 
     //    Cập nhật thông tin user
-    @PutMapping("admin/users")
+    @PutMapping("admin/users/{id}")
     public User changeUser(@PathVariable Integer id, @RequestBody ChangUserRequest request) {
         return adminService.changeUser(id, request);
     }
@@ -117,13 +117,13 @@ public class AdminController {
         return adminService.getAllComment(page,pageSize);
     }
     //    Cập nhật thông tin comment
-    @PutMapping("comments")
+    @PutMapping("comments/{id}")
     public Comment changeComment(@PathVariable Integer id, @RequestBody ChangeCommentRequest request){
         return adminService.changeComment(id, request);
     }
 //    Xóa comment
 //    DELETE : api/v1/admin/comments/{id}
-    @DeleteMapping("comments")
+    @DeleteMapping("comments/{id}")
     public void deleteComment(@PathVariable Integer id){
         adminService.deleteComment(id);
     }

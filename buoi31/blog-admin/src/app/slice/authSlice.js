@@ -9,6 +9,7 @@ const defaultState = {
 }
 
 const initialState = getData("authBlog") ? getData("authBlog") : defaultState;
+
 const authSlice = createSlice({
     name: "auth",
     initialState,

@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useGetBlogByUsernameQuery } from '../app/service/blogApi'
 
 function OwnBlog() {
+  const { data } = useGetBlogByUsernameQuery();
+
+  console.log(data)
   return (
     <div>
       <section className="content">
         <div className="container-fluid">
-        <div className="row py-2">
+          <div className="row py-2">
             <div className="col-12">
               <Link type="button" className="btn btn-primary" to={'/admin/blogs/create'}>
                 <i className="fas fa-plus"></i> Viết bài
@@ -30,36 +34,20 @@ function OwnBlog() {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <a href="./blog-detail.html">Khai giảng khóa
-                            Java Spring Boot 12A
-                            - song song 2 hình
-                            thức offline /
-                            online đáp ứng nhu
-                            cầu đào tạo từ xa</a>
-                        </td>
-                        <td>
-                          Java, Golang, Springboot
-                        </td>
-                        <td>Công khai</td>
-                        <td>06-07-2022</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="./blog-detail.html">Khai giảng khóa
-                            Java Spring Boot 12A
-                            - song song 2 hình
-                            thức offline /
-                            online đáp ứng nhu
-                            cầu đào tạo từ xa</a>
-                        </td>
-                        <td>
-                          Java, Golang, Springboot
-                        </td>
-                        <td>Công khai</td>
-                        <td>06-07-2022</td>
-                      </tr>
+                      {data?.content.map(e => (
+                        <tr key={e.id}>
+                          <td>
+                            <Link to={`/admin/blogs/${e.id}`}>{e.title}</Link>
+                          </td>
+                          <td>
+                            {e.categories.map((c) => (
+                              c.name
+                            )).join(", ")}
+                          </td>
+                          <td>{e.status==1?"Công khai": "Nháp"}</td>
+                          <td>{new Date(e.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
 

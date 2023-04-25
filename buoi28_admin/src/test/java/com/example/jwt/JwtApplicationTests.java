@@ -60,6 +60,13 @@ class JwtApplicationTests {
 
         userRepository.saveAll(users);
     }
+    @Test
+    void save_1_user(){
+        Role adminRole = roleRepository.findByName("ADMIN").orElse(null);
+        Role authorRole = roleRepository.findByName("AUTHOR").orElse(null);
+        User user = new User(null, "Nguyễn Văn D", "d@gmail.com", passwordEncoder.encode("111"), null,List.of(adminRole, authorRole));
+        userRepository.save(user);
+    }
 
     @Test
     void save_category() {
