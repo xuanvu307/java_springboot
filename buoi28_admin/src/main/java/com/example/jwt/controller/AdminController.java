@@ -18,7 +18,7 @@ public class AdminController {
 
     //    Quản lý blog
     //    Lấy danh sách blog (có phân trang, mặc định là pageSize = 10)
-    @GetMapping("page")
+    @GetMapping("blogs")
     public Page<Blog> getAllBlog(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
         return adminService.getAllBlog(page - 1, pageSize);
     }
@@ -32,7 +32,7 @@ public class AdminController {
     }
 
     //    Lấy chi tiết blog theo id
-    @GetMapping("blogs")
+    @GetMapping("blogs/{id}")
     public Blog getBlogById(@PathVariable Integer id) {
         return adminService.getBlogById(id);
     }

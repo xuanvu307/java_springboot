@@ -46,7 +46,8 @@ public class WebController {
     @GetMapping("/user-info-1")
     public ResponseEntity<?> getUserInfo1(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return ResponseEntity.ok(authentication);
+        System.out.println(authentication.getName());
+        return ResponseEntity.ok(authentication.getName());
     }
     @GetMapping("/user-info-2")
     public ResponseEntity<?> getUserInfo2(Principal principal){
