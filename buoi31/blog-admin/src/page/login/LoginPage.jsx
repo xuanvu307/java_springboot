@@ -3,6 +3,7 @@ import './LoginPage.css'
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../app/service/authApi';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 function LoginPage() {
@@ -15,17 +16,19 @@ function LoginPage() {
     // kiểm tra đã login chưa, nếu login rồi thì chuyển về trang chủ
 
     if (isAuthenticated) {
-        return < Navigate to = "/admin/blogs/own-blog" />
+        return < Navigate to="/admin/blogs/own-blog" />
     }
     const handleLogin = (e) => {
         e.preventDefault();
         login({ email, password })
             .unwrap()
             .then(() => {
-                alert("Đăng nhập thành công")
+                toast.success("Đăng nhập thành công")
                 navigate("/admin/blogs/own-blog")
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                toast.error(err.data)
+            })
     }
     return (
         <div className="container">

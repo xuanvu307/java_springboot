@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const blogApi = createApi({
     reducerPath: 'blogApi',
-    tagTypes :["Blog"],
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:8080/api/v1/admin',
         prepareHeaders: (headers, { getState }) => {
@@ -23,8 +22,7 @@ export const blogApi = createApi({
             query: ({ page, pageSize }) => `/blogs?page=${page}&pageSize=${pageSize}`,
         }),
         getBlogByUsername: builder.query({
-            query: () => `/blogs/own-blogs`,
-            invalidatesTags: ["Blog"]
+            query: ({ page, pageSize }) => `/blogs/own-blogs?page=${page}&pageSize=${pageSize}`,
         }),
         getBlogById: builder.query({
             query: ({ blogId, blogSlug }) => `blogs/${blogId}/${blogSlug}`
@@ -32,7 +30,7 @@ export const blogApi = createApi({
     }),
 })
 export const {
-    useGetAllBlogQuery,
-    useGetBlogByUsernameQuery,
+    useLazyGetAllBlogQuery,
+    useLazyGetBlogByUsernameQuery,
 
 } = blogApi

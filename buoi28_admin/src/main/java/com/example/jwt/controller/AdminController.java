@@ -28,7 +28,7 @@ public class AdminController {
     @GetMapping("blogs/own-blogs")
     public Page<Blog> getBlogByUser(@RequestParam(defaultValue = "1") Integer page,
                                     @RequestParam(defaultValue = "10") Integer pageSize) {
-        return adminService.getBlogByUser(page, pageSize);
+        return adminService.getBlogByUser(page - 1, pageSize);
     }
 
     //    Lấy chi tiết blog theo id

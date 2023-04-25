@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useGetAllBlogQuery } from '../app/service/blogApi'
+import { useLazyGetAllBlogQuery } from '../app/service/blogApi'
+import ReactPaginate from 'react-paginate';
 
 function ListBlog() {
-  const { data } = useGetAllBlogQuery({ page: 1, pageSize: 10 });
+  const [getAllBlog, { data, isLoading }] = useLazyGetAllBlogQuery();
+
+  useEffect(() => {
+    getAllBlog({ page: 1, pageSize: 10 })
+  }, [])
 
   console.log(data)
+  
+  const handlePageClick = (page) => {
+    getAllBlog({ page: page.selected + 1, pageSize: 10 })
+  }
+
   return (
     <div>
       <section className="content">
@@ -50,7 +60,7 @@ function ListBlog() {
                               c.name
                             )).join(", ")}
                           </td>
-                          <td>{e.status==1?"Công khai": "Nháp"}</td>
+                          <td>{e.status == 1 ? "Công khai" : "Nháp"}</td>
                           <td>{new Date(e.createdAt).toLocaleDateString()}</td>
                         </tr>
                       ))}
@@ -58,32 +68,26 @@ function ListBlog() {
                   </table>
 
                   <div className="d-flex justify-content-center mt-3" id="pagination">
-                    <ul className="pagination mb-0">
-                      <li className="paginate_button page-item previous disabled" id="example2_previous">
-                        <a href="#" aria-controls="example2" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
-                      </li>
-                      <li className="paginate_button page-item active">
-                        <a href="#" aria-controls="example2" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
-                      </li>
-                      <li className="paginate_button page-item">
-                        <a href="#" aria-controls="example2" data-dt-idx="2" tabIndex="0" className="page-link">2</a>
-                      </li>
-                      <li className="paginate_button page-item">
-                        <a href="#" aria-controls="example2" data-dt-idx="3" tabIndex="0" className="page-link">3</a>
-                      </li>
-                      <li className="paginate_button page-item">
-                        <a href="#" aria-controls="example2" data-dt-idx="4" tabIndex="0" className="page-link">4</a>
-                      </li>
-                      <li className="paginate_button page-item">
-                        <a href="#" aria-controls="example2" data-dt-idx="5" tabIndex="0" className="page-link">5</a>
-                      </li>
-                      <li className="paginate_button page-item">
-                        <a href="#" aria-controls="example2" data-dt-idx="6" tabIndex="0" className="page-link">6</a>
-                      </li>
-                      <li className="paginate_button page-item next" id="example2_next">
-                        <a href="#" aria-controls="example2" data-dt-idx="7" tabIndex="0" className="page-link">Next</a>
-                      </li>
-                    </ul>
+                    <ReactPaginate
+                      nextLabel="next >"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={3}
+                      marginPagesDisplayed={2}
+                      pageCount={data?.totalPages}
+                      previousLabel="< previous"
+                      pageClassName="page-item"
+                      pageLinkClassName="page-link"
+                      previousClassName="page-item"
+                      previousLinkClassName="page-link"
+                      nextClassName="page-item"
+                      nextLinkClassName="page-link"
+                      breakLabel="..."
+                      breakClassName="page-item"
+                      breakLinkClassName="page-link"
+                      containerClassName="pagination"
+                      activeClassName="active"
+                      renderOnZeroPageCount={null}
+                    />
                   </div>
                 </div>
               </div>
